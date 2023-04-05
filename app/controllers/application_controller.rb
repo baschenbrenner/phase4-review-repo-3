@@ -7,8 +7,8 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
 private 
 
-def render_unprocessable_entity_response
-  render json: { error: "The entity aint processable my boi" }, status: :unprocessable_entity
+def render_unprocessable_entity_response e
+  render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
 end
 
 def render_not_found_response
