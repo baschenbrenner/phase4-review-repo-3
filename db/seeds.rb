@@ -23,7 +23,7 @@ Invoice.create(
     date_service_completed:Faker::Date.forward(days: 365), 
     service_description:Faker::Lorem.paragraph, 
     client_id: Faker::Number.between(from: 1, to: 10),
-    user_id: Faker::Number.between(from: 1, to: 10))
+    user_id: 1)
 
 end
 

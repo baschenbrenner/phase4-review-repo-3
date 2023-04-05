@@ -20,10 +20,10 @@ function Signin({ onLogin }){
             headers: {
                 "Content-type": "application/json"
             }
-        })
-        .then(res=>res.json())
-        .then(data=>onLogin(data))
-        .catch(err=>console.log("errors: ", err))
+        }).then(res=>{
+        if (res.ok){
+            res.json().then(data=>onLogin(data))
+        }}).catch(err=>console.log("errors: ", err))
     }
 
     return(
