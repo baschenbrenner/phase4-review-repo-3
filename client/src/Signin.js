@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function Signin(){
+function Signin({ onLogin }){
 
     const [usernameForm, setUsernameForm] = useState("");
     const [passwordForm, setPasswordForm] = useState("");
@@ -22,7 +22,7 @@ function Signin(){
             }
         })
         .then(res=>res.json())
-        .then(data=>console.log("RES: ", data))
+        .then(data=>onLogin(data))
         .catch(err=>console.log("errors: ", err))
     }
 

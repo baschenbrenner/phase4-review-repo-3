@@ -31,7 +31,7 @@ if (user){
 } else
   return <div>
             <Signin onLogin={setUser}/>
-            <Signup />
+            <Signup onLogin={setUser}/>
           </div>
 }
 
