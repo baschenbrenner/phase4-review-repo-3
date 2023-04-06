@@ -28,6 +28,7 @@ function Signup({ onLogin, errorData, setErrorData }) {
     }).then((res) => {
       if (res.ok) {
         res.json().then((data) => onLogin(data));
+        navigate('/home')
         setUsername("");
         setPassword("");
         setEmail("");

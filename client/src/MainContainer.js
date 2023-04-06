@@ -23,9 +23,9 @@ function MainContainer(){
                     <Typography variant="h1" component="h1">Freelance</Typography>
                     <Typography variant="h5" component="h4">This is the MainContainer</Typography >
                 </Route> */}
-                <Route path="/" element={<Typography variant="h1" component="h1">Freelance</Typography>} />
-                <Route path="/" element={<Typography variant="h5" component="h4">This is the MainContainer</Typography >} />
-                <Route path="/clients" element={<Typography variant="h3" component="h3">Welcome, {user.username}!</Typography>} />
+                <Route path="/home" element={<Typography variant="h1" component="h1">Freelance</Typography>} />
+                <Route path="/home" element={<Typography variant="h5" component="h4">This is the MainContainer</Typography >} />
+                <Route path="/home" element={<Typography variant="h3" component="h3">Welcome, {user.username}!</Typography>} />
                 {/* <Route exact path="/clients">
                     <Typography variant="h3" component="h3">Welcome, {user.username}!</Typography>
                 </Route> */}

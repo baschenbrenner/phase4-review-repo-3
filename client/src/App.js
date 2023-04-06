@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect, createContext } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Signin from "./Signin";
 import Signup from "./Signup";
 import Navbar from "./Navbar";
@@ -12,11 +12,14 @@ export const userContext = createContext(null);
 function App() {
   const [user, setUser] = useState(null);
   const [errorData, setErrorData] = useState([]);
+  const navigate= useNavigate();
 
   useEffect(() => {
     fetch("/me").then((res) => {
       if (res.ok) {
         res.json().then((data) => setUser(data));
+      } else{
+        navigate('/signin');
       }
     });
   }, []);
