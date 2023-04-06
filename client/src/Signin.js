@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
+import { Button } from "@mui/material";
 
 function Signin({ onLogin, errorData, setErrorData }) {
   const [usernameForm, setUsernameForm] = useState("");
   const [passwordForm, setPasswordForm] = useState("");
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -63,6 +66,7 @@ function Signin({ onLogin, errorData, setErrorData }) {
           <input type="submit" name="submit"></input>
         </label>
       </form>
+      <Button variant="outlined" onClick={()=>navigate('/signup')}>Create an account</Button>
     </div>
   );
 }

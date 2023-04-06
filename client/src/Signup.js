@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 function Signup({ onLogin, errorData, setErrorData }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("")
   const [email, setEmail] = useState("");
+  const navigate= useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -86,6 +89,7 @@ function Signup({ onLogin, errorData, setErrorData }) {
           <input type="submit" name="submit"></input>
         </label>
       </form>
+      <Button variant="outlined" onClick={()=>navigate("/signin")}>Already Have an Account?</Button>
     </div>
   );
 }
