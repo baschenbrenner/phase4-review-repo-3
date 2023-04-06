@@ -1,7 +1,8 @@
 import React from "react";
+import { Routes, Route } from 'react-router-dom';
 import { useState, useContext, useEffect } from "react";
 import { userContext } from "./App";
-
+import { Typography } from "@mui/material";
 
 function MainContainer(){
     const user = useContext(userContext)
@@ -16,10 +17,19 @@ function MainContainer(){
     console.log("Clients after signing in: ", clients)
 
     return(
-        <div>
-            <h1>Freelance</h1>
-            <h3>Welcome, {user.username}!</h3>
-            <h4>This is the MainContainer</h4>
+        <div id="main-container">
+            <Routes>
+                {/* <Route exact path="/">
+                    <Typography variant="h1" component="h1">Freelance</Typography>
+                    <Typography variant="h5" component="h4">This is the MainContainer</Typography >
+                </Route> */}
+                <Route path="/" element={<Typography variant="h1" component="h1">Freelance</Typography>} />
+                <Route path="/" element={<Typography variant="h5" component="h4">This is the MainContainer</Typography >} />
+                <Route path="/clients" element={<Typography variant="h3" component="h3">Welcome, {user.username}!</Typography>} />
+                {/* <Route exact path="/clients">
+                    <Typography variant="h3" component="h3">Welcome, {user.username}!</Typography>
+                </Route> */}
+            </Routes>
         </div>
     )
 };

@@ -1,5 +1,13 @@
 // import { useState } from "react";
 import * as React from 'react';
+import { Button } from '@mui/material';
+import Menu from '@mui/material';
+import AppBar from '@mui/material';
+import MenuItem from '@mui/material';
+import Box from '@mui/material';
+import Container from '@mui/material';
+import Toolbar from '@mui/material';
+import Typography from '@mui/material';
 
 function NavBar({ onLogout }) {
 
@@ -9,12 +17,12 @@ function NavBar({ onLogout }) {
         }).then(onLogout())
     };
 
-  
-
   return (
-    <div>
-        <button onClick={handleSignOutClick}>Logout</button>
-    </div>
+    // <AppBar position="static">
+      <div>
+        <Button onClick={handleSignOutClick} variant="contained">Logout</Button>
+      </div>
+    // </AppBar>
   );
 }
 export default NavBar;
