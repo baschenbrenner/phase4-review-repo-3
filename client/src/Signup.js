@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
 
-function Signup({ onLogin }) {
+function Signup({ onLogin, errorData, setErrorData }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("")
   const [email, setEmail] = useState("");
 
   function handleSubmit(e) {
@@ -11,7 +12,8 @@ function Signup({ onLogin }) {
     const user = {
       username: username,
       password: password,
-      email: email
+      password_confirmation: passwordConfirm,
+      email: email,
     };
     console.log("Before fetch: ", user);
     fetch("/users", {
@@ -20,14 +22,24 @@ function Signup({ onLogin }) {
       headers: {
         "Content-type": "application/json",
       },
-    }).then((res) =>{
-      if (res.ok){
-        res.json().then((data) => onLogin(data))
-      }}).catch((err) => console.log("errors: ", err));
-      setUsername("");   
-      setPassword("");   
-      setEmail("");   
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((data) => onLogin(data));
+        setUsername("");
+        setPassword("");
+        setEmail("");
+        setErrorData([])
+      } else res.json().then((data) => setErrorData(data.errors));
+    });
   }
+
+  const errorsToDisplay = errorData.map((error) => {
+    return (
+      <ul style={{ color: "red" }}>
+        <li key={error}>{error}</li>
+      </ul>
+    );
+  });
 
   return (
     <div>
@@ -52,6 +64,15 @@ function Signup({ onLogin }) {
           ></input>
         </label>
         <label>
+          Confirm Password:
+          <input
+            type="password"
+            name="confirmPassword"
+            value={passwordConfirm}
+            onChange={(e) => setPasswordConfirm(e.target.value)}
+          ></input>
+        </label>
+        <label>
           Email:
           <input
             type="text"
@@ -60,6 +81,7 @@ function Signup({ onLogin }) {
             onChange={(e) => setEmail(e.target.value)}
           ></input>
         </label>
+        {errorsToDisplay}
         <label>
           <input type="submit" name="submit"></input>
         </label>

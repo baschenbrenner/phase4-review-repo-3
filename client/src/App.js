@@ -10,6 +10,7 @@ export const userContext = createContext(null);
 function App() {
 
   const [user, setUser] = useState(null);
+  const [errorData, setErrorData] = useState([])
 
   useEffect(() => {
     fetch("/me").then((res) => {
@@ -36,8 +37,8 @@ function App() {
   } else
     return (
       <div>
-        <Signin onLogin={setUser} />
-        <Signup onLogin={setUser} />
+        <Signin onLogin={setUser} errorData={errorData} setErrorData={setErrorData} />
+        <Signup onLogin={setUser} errorData={errorData} setErrorData={setErrorData} />
       </div>
     );
 }
