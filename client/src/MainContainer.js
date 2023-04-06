@@ -13,6 +13,7 @@ function MainContainer(){
         .then(data=>setClients(data))
     }, []);
 
+    console.log("Clients after signing in: ", clients)
 
     return(
         <div>

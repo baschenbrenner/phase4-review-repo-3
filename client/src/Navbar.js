@@ -1,7 +1,7 @@
-import React from "react";
-import { useState } from "react";
+// import { useState } from "react";
+import * as React from 'react';
 
-function Navbar({ onLogout }){
+function NavBar({ onLogout }) {
 
     function handleSignOutClick(){
         fetch('/logout', {
@@ -9,11 +9,12 @@ function Navbar({ onLogout }){
         }).then(onLogout())
     };
 
-    return(
-        <div>
-            <button onClick={handleSignOutClick}>SIGN OUT</button>
-        </div>
-    )
-};
+  
 
-export default Navbar;
+  return (
+    <div>
+        <button onClick={handleSignOutClick}>Logout</button>
+    </div>
+  );
+}
+export default NavBar;
