@@ -1,16 +1,11 @@
 import { Typography, Grid } from "@mui/material";
 import React from "react";
-import { useContext } from "react";
-import { userContext } from "./App";
+// import { useContext } from "react";
+// import { userContext } from "./App";
 import ClientCard from "./ClientCard";
 
-function ClientsPage({ clients }){
-    const user = useContext(userContext);
-    const userClients = clients.filter(client=>{
-        return client.invoices.filter(inv=>inv.user_id === user.id).length > 0
-    })
-
-    console.log(userClients)
+function ClientsPage({ userClients }){
+    // const user = useContext(userContext);
 
     const clientsToDisplay = userClients.map(client=>{
         return <Grid item xs={12} md={6} lg={4} xl={3} key={client.id}>
