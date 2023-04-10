@@ -26,16 +26,16 @@ function MainContainer(){
         console.log("Invoice ID before state handling", id)
 
         const newClients = [...clients].map(client=>{
-        return {
+        const obj = {
             id: client.id,
             name: client.name,
-            invoices: client.invoices.filter(inv=>inv.id !== id),
+            invoices: client.invoices.filter(inv=>inv.id !== parseInt(id)),
             poc_email: client.poc_email,
             point_of_contact: client.point_of_contact
         };
+        return obj;
     });
-    console.log("Clients: ", clients)
-    console.log("After filter attempt: ", newClients)
+    setClients(newClients)
 };
 
     
