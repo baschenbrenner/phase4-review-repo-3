@@ -22,13 +22,31 @@ function MainContainer(){
         }))
     }, [clients]);
 
+    function handleDeleteInvoice(id){
+        console.log("Invoice ID before state handling", id)
+
+        const newClients = [...clients].map(client=>{
+        return {
+            id: client.id,
+            name: client.name,
+            invoices: client.invoices.filter(inv=>inv.id !== id),
+            poc_email: client.poc_email,
+            point_of_contact: client.point_of_contact
+        };
+    });
+    console.log("Clients: ", clients)
+    console.log("After filter attempt: ", newClients)
+};
+
+    
+
     return(
         <div id="main-container">
             <Typography variant="h1" component="h1">Freelance</Typography>
             <Typography variant="h3" component="h3">Welcome, {user.username}!</Typography>
             <Routes>
                 <Route path="/home" element={<Typography variant="h5" component="h4">This is the MainContainer</Typography >} />
-                <Route path="/clients" element={<ClientsPage userClients={userClients} />} />
+                <Route path="/clients" element={<ClientsPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice}/>} />
             </Routes>
         </div>
     )

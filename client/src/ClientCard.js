@@ -15,10 +15,19 @@ function ClientCard(props){
                     <Typography variant="subtitle1" component="h6">Cost: ${inv.cost}</Typography>
                     <Typography variant="subtitle1" component="h6">Date Invoice Sent: {inv.date_invoice_sent}</Typography>
                     <Typography variant="subtitle1" component="h6">Date Invoice Paid: {inv.date_invoice_paid === null ? "Not yet paid" : inv.date_invoice_paid}</Typography>
+                    <Button id={inv.id} variant="outlined" onClick={handleDeleteInvoiceClick}>X</Button>
                 </Grid>
         };
     });
 
+    function handleDeleteInvoiceClick(e){
+        console.log("id before delete", e.target.id)
+        fetch(`/invoices/${e.target.id}`, {
+            method: "DELETE" 
+        }).then(res=>res.json)
+        .then(data=>console.log(data));
+        props.handleDeleteInvoice(e.target.id);
+    }
 
 
     return(

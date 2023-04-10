@@ -4,7 +4,7 @@ import React from "react";
 // import { userContext } from "./App";
 import ClientCard from "./ClientCard";
 
-function ClientsPage({ userClients }){
+function ClientsPage({ userClients, handleDeleteInvoice }){
     // const user = useContext(userContext);
 
     const clientsToDisplay = userClients.map(client=>{
@@ -14,7 +14,8 @@ function ClientsPage({ userClients }){
                                 name={client.name} 
                                 point_of_contact={client.point_of_contact} 
                                 poc_email={client.poc_email}
-                                invoices={client.invoices} />
+                                invoices={client.invoices} 
+                                handleDeleteInvoice={handleDeleteInvoice} />
                 </Grid>
     })
 
