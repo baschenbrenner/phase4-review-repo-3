@@ -3,6 +3,7 @@ import React from "react";
 // import { useContext } from "react";
 // import { userContext } from "./App";
 import ClientCard from "./ClientCard";
+import AddEditClientForm from "./AddEditClientForm";
 
 function ClientsPage({ userClients, handleDeleteInvoice }){
     // const user = useContext(userContext);
@@ -22,6 +23,7 @@ function ClientsPage({ userClients, handleDeleteInvoice }){
     return(
         <div>
             <Typography variant="h3" component="h3">Clients</Typography>
+            <AddEditClientForm />
             <Grid container spacing={2}> 
                 { clientsToDisplay }
             </Grid>
