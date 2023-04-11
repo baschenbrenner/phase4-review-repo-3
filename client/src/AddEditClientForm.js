@@ -82,7 +82,6 @@ function AddEditClientForm({ showForm, setShowForm, nameForm, setNameForm, poc, 
             required
             id="outlined-required"
             label="Client Name"
-            defaultValue="Client Name"
             value={nameForm}
             onChange={(e) => setNameForm(e.target.value)}
           />
@@ -90,7 +89,6 @@ function AddEditClientForm({ showForm, setShowForm, nameForm, setNameForm, poc, 
             required
             id="outlined"
             label="Point of Contact"
-            defaultValue="Point of Contact"
             value={poc}
             onChange={(e) => setPoc(e.target.value)}
           />
@@ -98,7 +96,6 @@ function AddEditClientForm({ showForm, setShowForm, nameForm, setNameForm, poc, 
             required
             id="outlined"
             label="Point of Contact's Email"
-            defaultValue="Point of Contact's Email"
             value={pocEmail}
             onChange={(e) => setPocEmail(e.target.value)}
           />

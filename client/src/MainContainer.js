@@ -40,7 +40,11 @@ function MainContainer(){
 }
 
 function handleUpdateClient(res){
-    
+    console.log(res)
+    const idx = [...clients].findIndex(client=>client.id === res.id)
+    const newClients =[...clients];
+    newClients.splice(idx, 1, res);
+    setClients(newClients)
 }
 
     
