@@ -10,7 +10,7 @@ function ClientCard(props){
 
     const invoicesToDisplay = props.invoices.map(inv=>{
         if (inv.user_id === user.id){
-        return <Grid item xs={12} id={inv.id} key={inv.id}>
+        return <Grid item xs={12} id={inv.id} key={inv.id} className="invoice-tag">
                     <Typography variant="h6" component="h5">{inv.service_description}</Typography>
                     <Typography variant="subtitle1" component="h6">Cost: ${inv.cost}</Typography>
                     <Typography variant="subtitle1" component="h6">Date Invoice Sent: {inv.date_invoice_sent}</Typography>

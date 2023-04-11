@@ -12,3 +12,15 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.add-edit-form{
+  justify-content: center;
+  padding: 20px;
+}
+
+.invoice-tag{
+  text-align: center;
+}
+.invoice-tag:nth-of-type(2n){
+  background: rgba(245, 245, 245, 0.559);
+}
