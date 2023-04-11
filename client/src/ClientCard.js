@@ -29,13 +29,23 @@ function ClientCard(props){
         props.handleDeleteInvoice(e.target.id);
     }
 
+    function handleUpdateClientClick(){
+        props.setShowForm(true);
+        props.setEditClient(true);
+        props.setNameForm(props.name);
+        props.setPoc(props.point_of_contact)
+        props.setPocEmail(props.poc_email);
+        props.setEditId(props.id)
+    }
+
 
     return(
         <Paper elevation={4}>
             <Typography variant="h5" component="h4">{props.name}</Typography>
             <Typography variant="subtitle1" component="h6">Point of Contact: {props.point_of_contact}</Typography>
             <Typography variant="subtitle2" component="h6">Email: {props.poc_email}</Typography>
-            { invoicesToDisplay.filter(inv=>inv).length > 0 ? <Button onClick={()=>setShowInvoices(!showInvoices)}>{showInvoices ? "Hide Invoices" : "Show Invoices" }</Button> : "No Invoices to Display" }
+            <Button onClick={()=>setShowInvoices(!showInvoices)}>{showInvoices ? "Hide Invoices" : "Show Invoices" }</Button>
+            <Button onClick={handleUpdateClientClick}>Update Client</Button>
             <Grid container >
                 { showInvoices ? invoicesToDisplay : null }
             </Grid>

@@ -9,6 +9,7 @@ function MainContainer(){
     const user = useContext(userContext)
     const [clients, setClients] = useState([])
     const [userClients, setUserClients] = useState([])
+    
 
     useEffect(()=>{
         fetch('/clients')
@@ -36,7 +37,11 @@ function MainContainer(){
         return obj;
     });
     setClients(newClients)
-};
+}
+
+function handleUpdateClient(res){
+    
+}
 
     
 
@@ -46,7 +51,7 @@ function MainContainer(){
             <Typography variant="h3" component="h3">Welcome, {user.username}!</Typography>
             <Routes>
                 <Route path="/home" element={<Typography variant="h5" component="h4">This is the MainContainer</Typography >} />
-                <Route path="/clients" element={<ClientsPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice}/>} />
+                <Route path="/clients" element={<ClientsPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} />} />
             </Routes>
         </div>
     )
