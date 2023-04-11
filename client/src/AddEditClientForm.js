@@ -29,6 +29,7 @@ function AddEditClientForm({
     setNameForm("");
     setPoc("");
     setPocEmail("");
+    setShowForm(false);
   }
 
   function handleSubmitNewClient(e) {
@@ -77,7 +78,7 @@ function AddEditClientForm({
   return (
     <div>
       <Typography variant="h2" component="h3">
-        {editClient ? `Edit ${nameForm}` : "Add New Client"}
+        {editClient ? "Edit Client" : "Add New Client"}
       </Typography>
       <Button variant="outlined" onClick={() => setShowForm(!showForm)}>
         {showForm ? "Hide Form" : "Add New Client"}

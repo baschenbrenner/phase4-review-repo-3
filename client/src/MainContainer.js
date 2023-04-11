@@ -4,6 +4,7 @@ import { useState, useContext, useEffect } from "react";
 import { userContext } from "./App";
 import { Typography } from "@mui/material";
 import ClientsPage from "./ClientsPage";
+import InvoicesPage from "./InvoicesPage";
 
 function MainContainer(){
     const user = useContext(userContext)
@@ -56,6 +57,7 @@ function handleUpdateClient(res){
             <Routes>
                 <Route path="/home" element={<Typography variant="h5" component="h4">This is the MainContainer</Typography >} />
                 <Route path="/clients" element={<ClientsPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} />} />
+                <Route path="/invoices" element={<InvoicesPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} />} />
             </Routes>
         </div>
     )

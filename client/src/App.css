@@ -24,3 +24,9 @@
 .invoice-tag:nth-of-type(2n){
   background: rgba(245, 245, 245, 0.559);
 }
+.table-row{
+  text-align: center;
+}
+.table-row:nth-of-type(2n){
+  background: rgba(245, 245, 245, 0.559);
+}
