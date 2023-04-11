@@ -53,9 +53,9 @@ function handleUpdateClient(res){
     return(
         <div id="main-container">
             <Typography variant="h1" component="h1">Freelance</Typography>
-            <Typography variant="h3" component="h3">Welcome, {user.username}!</Typography>
+            <Typography variant="h5" component="h3">Welcome, {user.username}!</Typography>
             <Routes>
-                <Route path="/home" element={<Typography variant="h5" component="h4">This is the MainContainer</Typography >} />
+                <Route path="/home" element={<Typography variant="h5" component="h4">This is the HomePage</Typography >} />
                 <Route path="/clients" element={<ClientsPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} />} />
                 <Route path="/invoices" element={<InvoicesPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} />} />
             </Routes>

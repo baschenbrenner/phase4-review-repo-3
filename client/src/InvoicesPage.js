@@ -9,7 +9,7 @@ function InvoicesPage({ userClients }){
     const rowsToDisplay = userClients.map(client => {
         return client.invoices.map(inv=>{
             return <TableRow key={inv.id} className="table-row">
-                        <TableCell> <Button onClick={()=>console.log(inv.id)}>Update</Button> </TableCell>
+                        <TableCell> <Button onClick={()=>console.log(inv.id)}>Edit</Button> </TableCell>
                         <TableCell>{inv.date_invoice_sent}</TableCell>
                         <TableCell>{client.name}</TableCell>
                         <TableCell>{inv.service_description}</TableCell>

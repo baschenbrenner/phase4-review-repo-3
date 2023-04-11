@@ -29,6 +29,7 @@ function AddEditClientForm({
     setNameForm("");
     setPoc("");
     setPocEmail("");
+    setEditClient(false);
     setShowForm(false);
   }
 
