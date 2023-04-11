@@ -24,13 +24,18 @@ function AddEditClientForm({
   setEditClient,
   editId,
   handleUpdateClient,
+  errorData,
+  setErrorData
 }) {
+
+
   function resetForm() {
     setNameForm("");
     setPoc("");
     setPocEmail("");
     setEditClient(false);
     setShowForm(false);
+    setErrorData([]);
   }
 
   function handleSubmitNewClient(e) {
@@ -48,10 +53,13 @@ function AddEditClientForm({
       },
       body: JSON.stringify(client),
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-    resetForm();
+      .then((res) =>{
+        if (res.ok){
+          res.json().then((data) => console.log(data))
+          resetForm();
+      } else
+       res.json().then(data=>setErrorData(data))
+    })
   }
 
   function handleUpdateClientFetch(e) {
@@ -74,7 +82,14 @@ function AddEditClientForm({
       .catch((err) => console.log(err));
     resetForm();
     setEditClient(false);
-  }
+  };
+
+
+//  const errorsToDisplay = errorData.map(error=> {
+//     return <ul style={{ color: "red" }}>
+//               <li key={error}>{error}</li>
+//             </ul>
+// })
 
   return (
     <div>
@@ -129,6 +144,7 @@ function AddEditClientForm({
                 onChange={(e) => setPocEmail(e.target.value)}
               />
             </Grid>
+            {/* {errorsToDisplay} */}
             <Grid item xs={12}>
               <Fab variant="extended" type="submit">
                 <NavigationIcon sx={{ mr: 1 }} />

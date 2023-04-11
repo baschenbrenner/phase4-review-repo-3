@@ -5,7 +5,7 @@ import { useState } from "react";
 import ClientCard from "./ClientCard";
 import AddEditClientForm from "./AddEditClientForm";
 
-function ClientsPage({ userClients, handleDeleteInvoice, handleUpdateClient }) {
+function ClientsPage({ userClients, handleDeleteInvoice, handleUpdateClient, errorData, setErrorData }) {
   const [showForm, setShowForm] = useState(false);
   const [nameForm, setNameForm] = useState("");
   const [poc, setPoc] = useState("");
@@ -59,6 +59,8 @@ function ClientsPage({ userClients, handleDeleteInvoice, handleUpdateClient }) {
         editId={editId}
         setEditId={setEditId}
         handleUpdateClient={handleUpdateClient}
+        errorData={errorData} 
+        setErrorData={setErrorData}
       />
       <Grid container spacing={2}>
         {clientsToDisplay}

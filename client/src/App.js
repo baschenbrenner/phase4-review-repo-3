@@ -34,7 +34,7 @@ function App() {
       <div className="App">
         <userContext.Provider value={user}>
           <Navbar onLogout={onLogout} />
-          <MainContainer />
+          <MainContainer errorData={errorData} setErrorData={setErrorData}/>
         </userContext.Provider>
       </div>
     );

@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import ClientsPage from "./ClientsPage";
 import InvoicesPage from "./InvoicesPage";
 
-function MainContainer(){
+function MainContainer({ errorData, setErrorData }){
     const user = useContext(userContext)
     const [clients, setClients] = useState([])
     const [userClients, setUserClients] = useState([])
@@ -56,7 +56,7 @@ function handleUpdateClient(res){
             <Typography variant="h5" component="h3">Welcome, {user.username}!</Typography>
             <Routes>
                 <Route path="/home" element={<Typography variant="h5" component="h4">This is the HomePage</Typography >} />
-                <Route path="/clients" element={<ClientsPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} />} />
+                <Route path="/clients" element={<ClientsPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} errorData={errorData} setErrorData={setErrorData}/>} />
                 <Route path="/invoices" element={<InvoicesPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} />} />
             </Routes>
         </div>

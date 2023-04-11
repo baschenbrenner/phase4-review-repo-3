@@ -32,7 +32,7 @@ function displayCosts(int){
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Update Invoice</TableCell>
+              <TableCell>Other Actions</TableCell>
               <TableCell>Date Sent</TableCell>
               <TableCell>Client Name</TableCell>
               <TableCell>Service Description</TableCell>
@@ -42,15 +42,6 @@ function displayCosts(int){
           </TableHead>
           <TableBody>
             {rowsToDisplay}
-            {/* {rows.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.date}</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.shipTo}</TableCell>
-                <TableCell>{row.paymentMethod}</TableCell>
-                <TableCell align="right">{`$${row.amount}`}</TableCell>
-              </TableRow>
-            ))} */}
           </TableBody>
         </Table>
         <Link color="primary" href="#" onClick={()=>console.log("CLICKED")} sx={{ mt: 3 }}>
