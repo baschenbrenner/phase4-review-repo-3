@@ -1,5 +1,4 @@
 import React from "react";
-// import { useState } from "react";
 import {
   Button,
   Table,
@@ -10,17 +9,21 @@ import {
   TableRow,
   Link,
 } from "@mui/material";
+import { useContext, useState } from 'react'
+import { userContext } from "./App";
+
 
 function InvoicesPage({ userClients }) {
-  
+  const user = useContext(userContext);
+
   const rowsToDisplay = userClients
-    .map((client) => {
-      return client.invoices.map((inv) => {
+    .map(client => {
+      return client.invoices.map(inv => {
+        if(inv.user_id === user.id){
         return (
           <TableRow key={inv.id} className="table-row">
             <TableCell>
-              {" "}
-              <Button onClick={() => console.log(inv.id)}>Edit</Button>{" "}
+              <Button onClick={() => console.log(inv.id)}>Edit</Button>
             </TableCell>
             <TableCell>{inv.date_invoice_sent}</TableCell>
             <TableCell>{client.name}</TableCell>
@@ -31,22 +34,17 @@ function InvoicesPage({ userClients }) {
             )}.00`}</TableCell>
           </TableRow>
         );
+      }}).sort((a, b) => {
+        return (
+          b.props.children[1].props.children -
+          a.props.children[1].props.children
+        );
       });
-    })
-    .sort((a, b) => {
-      return (
-        b[0].props.children[1].props.children -
-        a[0].props.children[1].props.children
-      );
     });
+    
 
   // This is targeting the date_invoice_sent to then be sorted
   // rowsToDisplay[0][0].props.children[1].props.children
-
-
-
-  console.log(rowsToDisplay);
-
 
 
   function displayCosts(int) {
