@@ -8,6 +8,8 @@ import {
   Typography,
   Button,
   Grid,
+  List,
+  ListItem
 } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
 
@@ -58,7 +60,7 @@ function AddEditClientForm({
           res.json().then((data) => console.log(data))
           resetForm();
       } else
-       res.json().then(data=>setErrorData(data))
+       res.json().then(data=>setErrorData(data.errors))
     })
   }
 
@@ -77,19 +79,22 @@ function AddEditClientForm({
       },
       body: JSON.stringify(client),
     })
-      .then((res) => res.json())
-      .then((data) => handleUpdateClient(data))
-      .catch((err) => console.log(err));
-    resetForm();
-    setEditClient(false);
-  };
+    .then((res) =>{
+      if (res.ok){
+        res.json().then((data) => handleUpdateClient(data))
+        resetForm();
+        setEditClient(false);
+    } else
+     res.json().then(data=>setErrorData(data.errors))
+  })
+}
 
 
-//  const errorsToDisplay = errorData.map(error=> {
-//     return <ul style={{ color: "red" }}>
-//               <li key={error}>{error}</li>
-//             </ul>
-// })
+ const errorsToDisplay = errorData.map(error=> {
+    return <List style={{ color: "red" }} key={error}>
+              <ListItem >{error}</ListItem>
+            </List>
+})
 
   return (
     <div>
@@ -144,7 +149,7 @@ function AddEditClientForm({
                 onChange={(e) => setPocEmail(e.target.value)}
               />
             </Grid>
-            {/* {errorsToDisplay} */}
+            {errorsToDisplay}
             <Grid item xs={12}>
               <Fab variant="extended" type="submit">
                 <NavigationIcon sx={{ mr: 1 }} />
