@@ -1,14 +1,16 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Grid, TextField, Typography, Box } from "@mui/material";
+import Fab from "@mui/material/Fab";
+import NavigationIcon from "@mui/icons-material/Navigation";
 
 function Signup({ onLogin, errorData, setErrorData }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("")
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [email, setEmail] = useState("");
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -28,11 +30,11 @@ function Signup({ onLogin, errorData, setErrorData }) {
     }).then((res) => {
       if (res.ok) {
         res.json().then((data) => onLogin(data));
-        navigate('/home')
+        navigate("/home");
         setUsername("");
         setPassword("");
         setEmail("");
-        setErrorData([])
+        setErrorData([]);
       } else res.json().then((data) => setErrorData(data.errors));
     });
   }
@@ -47,7 +49,76 @@ function Signup({ onLogin, errorData, setErrorData }) {
 
   return (
     <div>
-      <h4>This is the sign UP page</h4>
+      <Typography variant="h2" component="h2">
+        This is the sign up page
+      </Typography>
+
+      <Grid container spacing={2} className="signin-form">
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="outlined-required"
+              label="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="outlined-required"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="outlined-required"
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="outlined-required"
+              label="Confirm Password"
+              type="password"
+              value={passwordConfirm}
+              onChange={(e) => setPasswordConfirm(e.target.value)}
+            />
+          </Grid>
+          {errorsToDisplay}
+          <Fab
+            onClick={handleSubmit}
+            variant="extended"
+            size="small"
+            color="primary"
+            aria-label="add"
+          >
+            <NavigationIcon sx={{ mr: 1 }} />
+            Submit
+          </Fab>
+          <Button variant="outlined" onClick={() => navigate("/signin")}>
+            Already Have an Account?
+          </Button>
+        </Box>
+      </Grid>
+
+      {/* <h4>This is the sign UP page</h4>
       <form onSubmit={handleSubmit}>
         <label>
           Username:
@@ -85,12 +156,10 @@ function Signup({ onLogin, errorData, setErrorData }) {
             onChange={(e) => setEmail(e.target.value)}
           ></input>
         </label>
-        {errorsToDisplay}
         <label>
           <input type="submit" name="submit"></input>
         </label>
-      </form>
-      <Button variant="outlined" onClick={()=>navigate("/signin")}>Already Have an Account?</Button>
+      </form> */}
     </div>
   );
 }

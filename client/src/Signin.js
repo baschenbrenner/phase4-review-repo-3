@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom'
-import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Button, Typography, Grid, Box, TextField } from "@mui/material";
+import Fab from '@mui/material/Fab';
+import NavigationIcon from '@mui/icons-material/Navigation';
 
 function Signin({ onLogin, errorData, setErrorData }) {
   const [usernameForm, setUsernameForm] = useState("");
@@ -24,50 +26,68 @@ function Signin({ onLogin, errorData, setErrorData }) {
     }).then((res) => {
       if (res.ok) {
         res.json().then((data) => onLogin(data));
-        navigate('/home')
-        setUsernameForm("")
-        setPasswordForm("")
+        navigate("/home");
+        setUsernameForm("");
+        setPasswordForm("");
         setErrorData([]);
       } else res.json().then((data) => setErrorData([data.error]));
     });
   }
 
-
-  const errorsToDisplay = errorData.map(error=> {
-    return <ul style={{ color: "red" }}>
-              <li key={error}>{error}</li>
-            </ul>
-})
+  const errorsToDisplay = errorData.map((error) => {
+    return (
+      <ul style={{ color: "red" }}>
+        <li key={error}>{error}</li>
+      </ul>
+    );
+  });
 
   // Return of JSX
   return (
     <div>
-      <h4>This is the sign in page</h4>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={usernameForm}
-            onChange={(e) => setUsernameForm(e.target.value)}
-          ></input>
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={passwordForm}
-            onChange={(e) => setPasswordForm(e.target.value)}
-          ></input>
-        </label>
-        { errorsToDisplay }
-        <label>
-          <input type="submit" name="submit"></input>
-        </label>
-      </form>
-      <Button variant="outlined" onClick={()=>navigate('/signup')}>Create an account</Button>
+      <Typography variant="h2" component="h2">
+        This is the sign in page
+      </Typography>
+
+      <Grid container spacing={2} className="signin-form">
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="outlined-required"
+              label="Username"
+              value={usernameForm}
+              onChange={(e) => setUsernameForm(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="outlined-required"
+              label="Password"
+              type="password"
+              value={passwordForm}
+              onChange={(e) => setPasswordForm(e.target.value)}
+            />
+          </Grid>
+          { errorsToDisplay }
+          <Fab onClick={handleSubmit} variant="extended" size="small" color="primary" aria-label="add">
+            <NavigationIcon  sx={{ mr: 1 }} />
+            Submit
+          </Fab>
+          <Button variant="outlined" onClick={() => navigate("/signup")}>
+            Create an account
+          </Button>
+        </Box>
+      </Grid>
     </div>
   );
 }
