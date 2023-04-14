@@ -40,6 +40,14 @@ function MainContainer({ errorData, setErrorData }){
     setClients(newClients)
 }
 
+function handleUpdateInvoice(res){
+    console.log("res after fetch", res);
+    const targetClient= [...clients].filter(client=>client.id === res.id)[0]
+    const idx = targetClient.invoices.findIndex(inv=>inv.id === res.id);
+    targetClient.invoices.splice(idx, 1, res);
+    handleUpdateClient(targetClient);
+}
+
 function handleUpdateClient(res){
     console.log(res)
     const idx = [...clients].findIndex(client=>client.id === res.id)
@@ -57,7 +65,7 @@ function handleUpdateClient(res){
             <Routes>
                 <Route path="/home" element={<Typography variant="h5" component="h4">This is the HomePage</Typography >} />
                 <Route path="/clients" element={<ClientsPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} errorData={errorData} setErrorData={setErrorData}/>} />
-                <Route path="/invoices" element={<InvoicesPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} />} />
+                <Route path="/invoices" element={<InvoicesPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} handleUpdateInvoice={handleUpdateInvoice}/>} />
             </Routes>
         </div>
     )

@@ -10,14 +10,17 @@ import {
   Link,
   TextField,
   Box,
+  Fab
 } from "@mui/material";
+import NavigationIcon from "@mui/icons-material/Navigation";
 // import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 // import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { useContext, useState } from "react";
 import { userContext } from "./App";
 
-function InvoicesPage({ userClients }) {
+function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, handleDeleteInvoice }) {
+
   const user = useContext(userContext);
   const [name, setName] = useState("");
   const [showEdit, setShowEdit] = useState(false);
@@ -26,8 +29,6 @@ function InvoicesPage({ userClients }) {
   const [description, setDescription] = useState("");
   const [editId, setEditId] = useState(null);
   const [cost, setCost] = useState(null);
-
-
 
   const rowsToDisplay = userClients.map((client) => {
     return client.invoices
@@ -75,7 +76,7 @@ function InvoicesPage({ userClients }) {
     return num_parts.join(".");
   }
 
-  function handleUpdateInvoice(e) {
+  function handleUpdateInvoiceSubmit(e) {
     e.preventDefault();
     const inv = {
       date_invoice_sent: dateSent,
@@ -83,11 +84,30 @@ function InvoicesPage({ userClients }) {
       service_description: description,
       cost: cost,
     };
-    console.log(inv);
-    setShowEdit(false);
-    setEditId(null);
-  }
+    fetch(`invoices/${editId}`,{
+      method: "PATCH",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(inv)
+    }).then(res=>{
+      if (res.ok){
+        res.json().then(data=>handleUpdateInvoice(data))
 
+        setShowEdit(false);
+        setEditId(null);
+        setCost(null);
+        setDatePaid("");
+        setDateSent("");
+        setDescription("");
+        
+      } else
+      res.json(data=>console.log(data))
+    })
+
+
+    
+  }
 
   // Return of JSX
   return (
@@ -99,21 +119,48 @@ function InvoicesPage({ userClients }) {
         }}
         noValidate
         autoComplete="off"
-        onSubmit={handleUpdateInvoice}
+        onSubmit={handleUpdateInvoiceSubmit}
       >
-        <Typography variant="h5" component="h5">Invoice for {name}from {dateSent}</Typography>
-        <TextField id="outlined" value={description} label="Description">
+        <Typography variant="h5" component="h5">
+          Invoice for {name}from {dateSent}
+        </Typography>
+        <TextField
+          id="outlined"
+          value={description}
+          label="Description"
+          onChange={(e) => setDescription(e.target.value)}
+        >
           {description}
         </TextField>
-        <TextField id="outlined" value={cost} label="Cost">
+        <TextField
+          id="outlined"
+          type="number"
+          value={cost}
+          label="Cost"
+          onChange={(e) => setCost(e.target.value)}
+        >
           {cost}
         </TextField>
-        <TextField id="outlined" value={dateSent} label="Date Sent">
+        <TextField
+          id="outlined"
+          value={dateSent}
+          label="Date Sent"
+          onChange={(e) => setDateSent(e.target.value)}
+        >
           {dateSent}
         </TextField>
-        <TextField id="outlined" value={datePaid} label="Date Paid">
+        <TextField
+          id="outlined"
+          value={datePaid}
+          label="Date Paid"
+          onChange={(e) => setDatePaid(e.target.value)}
+        >
           {datePaid}
         </TextField>
+        <Fab variant="extended" type="submit">
+          <NavigationIcon sx={{ mr: 1 }} />
+          Submit
+        </Fab>
       </Box>
 
       {/* Title for Table */}
