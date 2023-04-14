@@ -24,12 +24,13 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
 
   const user = useContext(userContext);
   const [name, setName] = useState("");
-  const [showEdit, setShowEdit] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [editForm, setEditForm] = useState(false);
   const [dateSent, setDateSent] = useState("");
   const [datePaid, setDatePaid] = useState("");
   const [description, setDescription] = useState("");
   const [editId, setEditId] = useState(null);
-  const [cost, setCost] = useState(null);
+  const [cost, setCost] = useState("");
 
   const rowsToDisplay = userClients.map((client) => {
     return client.invoices
@@ -43,7 +44,7 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
               <TableCell>{inv.date_invoice_sent}</TableCell>
               <TableCell>{client.name}</TableCell>
               <TableCell>{inv.service_description}</TableCell>
-              <TableCell>{inv.date_invoice_paid}</TableCell>
+              <TableCell>{inv.date_invoice_paid !== null && inv.date_invoice_paid !== "" ? inv.date_invoice_paid : "Not Paid"}</TableCell>
               <TableCell align="right">{`$${displayCosts(
                 inv.cost
               )}.00`}</TableCell>
@@ -51,7 +52,8 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
           );
         }
         function autoPopulateEdit() {
-          setShowEdit(true);
+          setShowForm(true);
+          setEditForm(true);
           setEditId(client.id);
           setName(client.name);
           setDateSent(inv.date_invoice_sent);
@@ -94,27 +96,30 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
     }).then(res=>{
       if (res.ok){
         res.json().then(data=>handleUpdateInvoice(data))
-
-        setShowEdit(false);
-        setEditId(null);
-        setCost(null);
-        setDatePaid("");
-        setDateSent("");
-        setDescription("");
+        resetForm();
         
       } else
       res.json(data=>console.log(data))
     })
-
-
-    
   }
+
+  function resetForm(){
+    setShowForm(false);
+    setEditForm(false);
+    setEditId(null);
+    setCost("");
+    setDatePaid("");
+    setDateSent("");
+    setDescription("");
+  }
+
 
   // Return of JSX
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={()=>setShowEdit(!showEdit)} >Add/Edit Invoice</Button>
-      <Collapse in={showEdit} >
+      <Button variant="outlined" onClick={()=>setShowForm(!showForm)} >{editForm ? "Edit Invoice" : "Add Invoice"}</Button>
+      {showForm ? <Button variant="text" onClick={()=>resetForm()} >Reset Form</Button> : null }
+      <Collapse in={showForm} >
       <Box
         component="form"
         sx={{
@@ -125,7 +130,7 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
         onSubmit={handleUpdateInvoiceSubmit}
       >
         <Typography variant="h5" component="h5">
-          Invoice for {name}from {dateSent}
+          { editForm ? `Invoice for ${name} from ${dateSent}` : "Add New Invoice" }
         </Typography>
         <TextField
           id="outlined"
