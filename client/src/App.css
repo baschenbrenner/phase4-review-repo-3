@@ -33,3 +33,7 @@
 .table-row:nth-of-type(2n){
   background: rgba(585, 545, 245, 10.559);
 }
+
+.table-row:hover{
+  background: lightgrey;
+}

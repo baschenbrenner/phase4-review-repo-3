@@ -191,14 +191,6 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
         </TableHead>
         <TableBody>{rowsToDisplay}</TableBody>
       </Table>
-      <Link
-        color="primary"
-        href="#"
-        onClick={() => console.log("CLICKED")}
-        sx={{ mt: 3 }}
-      >
-        See more orders
-      </Link>
     </React.Fragment>
   );
 }

@@ -25,8 +25,8 @@ function NavBar({ onLogout }) {
     // <AppBar position="static">
       <div>
         <Button onClick={()=>navigate('/home')} variant="outlined">Home</Button>
-        <Button onClick={()=>navigate('/clients')} variant="outlined">Clients</Button>
         <Button onClick={()=>navigate('/invoices')} variant="outlined">Invoices</Button>
+        <Button onClick={()=>navigate('/clients')} variant="outlined">Clients</Button>
         <Button onClick={handleSignOutClick} variant="contained">Logout</Button>
       </div>
     // </AppBar>
