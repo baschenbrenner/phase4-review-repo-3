@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Typography, Grid, Box, TextField } from "@mui/material";
-import Fab from '@mui/material/Fab';
-import NavigationIcon from '@mui/icons-material/Navigation';
+import Fab from "@mui/material/Fab";
+import NavigationIcon from "@mui/icons-material/Navigation";
 
 function Signin({ onLogin, errorData, setErrorData }) {
   const [usernameForm, setUsernameForm] = useState("");
@@ -41,6 +41,7 @@ function Signin({ onLogin, errorData, setErrorData }) {
       </ul>
     );
   });
+  
 
   // Return of JSX
   return (
@@ -78,9 +79,15 @@ function Signin({ onLogin, errorData, setErrorData }) {
               onChange={(e) => setPasswordForm(e.target.value)}
             />
           </Grid>
-          { errorsToDisplay }
-          <Fab onClick={handleSubmit} variant="extended" size="small" color="primary" aria-label="add">
-            <NavigationIcon  sx={{ mr: 1 }} />
+          {errorsToDisplay}
+          <Fab
+            onClick={handleSubmit}
+            variant="extended"
+            size="small"
+            color="primary"
+            aria-label="add"
+          >
+            <NavigationIcon sx={{ mr: 1 }} />
             Submit
           </Fab>
           <Button variant="outlined" onClick={() => navigate("/signup")}>

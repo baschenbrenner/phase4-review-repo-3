@@ -10,7 +10,8 @@ import {
   Link,
   TextField,
   Box,
-  Fab
+  Fab,
+  Collapse
 } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
 // import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -112,6 +113,8 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
   // Return of JSX
   return (
     <React.Fragment>
+      <Button variant="outlined" onClick={()=>setShowEdit(!showEdit)} >Add/Edit Invoice</Button>
+      <Collapse in={showEdit} >
       <Box
         component="form"
         sx={{
@@ -162,6 +165,7 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
           Submit
         </Fab>
       </Box>
+      </Collapse>
 
       {/* Title for Table */}
       <Typography variant="h5" component="h5">
