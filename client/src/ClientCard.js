@@ -40,7 +40,7 @@ function ClientCard(props){
 
 
     return(
-        <Paper elevation={4}>
+        <Paper elevation={4} className="client-card">
             <Typography variant="h5" component="h4">{props.name}</Typography>
             <Typography variant="subtitle1" component="h6">Point of Contact: {props.point_of_contact}</Typography>
             <Typography variant="subtitle2" component="h6">Email: {props.poc_email}</Typography>

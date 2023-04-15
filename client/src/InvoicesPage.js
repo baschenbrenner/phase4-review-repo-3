@@ -7,11 +7,14 @@ import {
   TableHead,
   Typography,
   TableRow,
-  Link,
   TextField,
   Box,
   Fab,
-  Collapse
+  Collapse,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
 } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
 // import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -20,8 +23,12 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import { useContext, useState } from "react";
 import { userContext } from "./App";
 
-function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, handleDeleteInvoice }) {
-
+function InvoicesPage({
+  userClients,
+  clients,
+  handleUpdateInvoice,
+  handleDeleteInvoice,
+}) {
   const user = useContext(userContext);
   const [name, setName] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -29,8 +36,10 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
   const [dateSent, setDateSent] = useState("");
   const [datePaid, setDatePaid] = useState("");
   const [description, setDescription] = useState("");
+  const [clientId, setClientId] = useState(null);
+  const [clientName, setClientName] = useState("");
   const [editId, setEditId] = useState(null);
-  const [cost, setCost] = useState("");
+  const [cost, setCost] = useState(null);
 
   const rowsToDisplay = userClients.map((client) => {
     return client.invoices
@@ -40,11 +49,18 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
             <TableRow key={inv.id} className="table-row">
               <TableCell>
                 <Button onClick={() => autoPopulateEdit()}>Edit</Button>
+                <Button onClick={() => handleDeleteInvoice(inv.id)}>
+                  Delete
+                </Button>
               </TableCell>
               <TableCell>{inv.date_invoice_sent}</TableCell>
               <TableCell>{client.name}</TableCell>
               <TableCell>{inv.service_description}</TableCell>
-              <TableCell>{inv.date_invoice_paid !== null && inv.date_invoice_paid !== "" ? inv.date_invoice_paid : "Not Paid"}</TableCell>
+              <TableCell>
+                {inv.date_invoice_paid !== null && inv.date_invoice_paid !== ""
+                  ? inv.date_invoice_paid
+                  : "Not Paid"}
+              </TableCell>
               <TableCell align="right">{`$${displayCosts(
                 inv.cost
               )}.00`}</TableCell>
@@ -87,89 +103,118 @@ function InvoicesPage({ userClients, handleUpdateInvoice, handleUpdateClient, ha
       service_description: description,
       cost: cost,
     };
-    fetch(`invoices/${editId}`,{
+    fetch(`invoices/${editId}`, {
       method: "PATCH",
-      headers:{
-        "Content-Type": "application/json"
+      headers: {
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(inv)
-    }).then(res=>{
-      if (res.ok){
-        res.json().then(data=>handleUpdateInvoice(data))
+      body: JSON.stringify(inv),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((data) => handleUpdateInvoice(data));
         resetForm();
-        
-      } else
-      res.json(data=>console.log(data))
-    })
+      } else res.json((data) => console.log(data));
+    });
   }
 
-  function resetForm(){
+  function resetForm() {
     setShowForm(false);
     setEditForm(false);
     setEditId(null);
-    setCost("");
+    setCost(null);
+    setClientId(null);
+    setClientName("");
     setDatePaid("");
     setDateSent("");
     setDescription("");
   }
 
+  const clientsOptions = clients.map((client) => {
+    return (
+      <MenuItem id={client.id} key={client.id}>
+        {client.name}
+      </MenuItem>
+    );
+  });
+
+  console.log(clientName);
 
   // Return of JSX
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={()=>setShowForm(!showForm)} >{editForm ? "Edit Invoice" : "Add Invoice"}</Button>
-      {showForm ? <Button variant="text" onClick={()=>resetForm()} >Reset Form</Button> : null }
-      <Collapse in={showForm} >
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
-        }}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleUpdateInvoiceSubmit}
-      >
-        <Typography variant="h5" component="h5">
-          { editForm ? `Invoice for ${name} from ${dateSent}` : "Add New Invoice" }
-        </Typography>
-        <TextField
-          id="outlined"
-          value={description}
-          label="Description"
-          onChange={(e) => setDescription(e.target.value)}
+      <Button variant="outlined" onClick={() => setShowForm(!showForm)}>
+        {editForm ? "Edit Invoice" : "Add Invoice"}
+      </Button>
+      {showForm ? (
+        <Button variant="text" onClick={() => resetForm()}>
+          Reset Form
+        </Button>
+      ) : null}
+      <Collapse in={showForm}>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleUpdateInvoiceSubmit}
         >
-          {description}
-        </TextField>
-        <TextField
-          id="outlined"
-          type="number"
-          value={cost}
-          label="Cost"
-          onChange={(e) => setCost(e.target.value)}
-        >
-          {cost}
-        </TextField>
-        <TextField
-          id="outlined"
-          value={dateSent}
-          label="Date Sent"
-          onChange={(e) => setDateSent(e.target.value)}
-        >
-          {dateSent}
-        </TextField>
-        <TextField
-          id="outlined"
-          value={datePaid}
-          label="Date Paid"
-          onChange={(e) => setDatePaid(e.target.value)}
-        >
-          {datePaid}
-        </TextField>
-        <Fab variant="extended" type="submit">
-          <NavigationIcon sx={{ mr: 1 }} />
-          Submit
-        </Fab>
-      </Box>
+          <Typography variant="h5" component="h5">
+            {editForm
+              ? `Invoice for ${name} from ${dateSent}`
+              : "Add New Invoice"}
+          </Typography>
+
+          <FormControl fullWidth>
+            <InputLabel>Client</InputLabel>
+            <Select
+              id="client-select"
+              value={clientName}
+              onChange={(e) => console.log(e)}
+            >
+              {clientsOptions}
+            </Select>
+          </FormControl>
+
+          <TextField
+            id="outlined"
+            value={description}
+            label="Description"
+            onChange={(e) => setDescription(e.target.value)}
+          >
+            {description}
+          </TextField>
+          <TextField
+            id="outlined"
+            type="number"
+            value={cost}
+            label="Cost"
+            onChange={(e) => setCost(e.target.value)}
+          >
+            {cost}
+          </TextField>
+          <TextField
+            id="outlined"
+            value={dateSent}
+            label="Date Sent"
+            onChange={(e) => setDateSent(e.target.value)}
+          >
+            {dateSent}
+          </TextField>
+          <TextField
+            id="outlined"
+            value={datePaid}
+            label="Date Paid"
+            onChange={(e) => setDatePaid(e.target.value)}
+          >
+            {datePaid}
+          </TextField>
+          <Fab variant="extended" type="submit">
+            <NavigationIcon sx={{ mr: 1 }} />
+            Submit
+          </Fab>
+        </Box>
       </Collapse>
 
       {/* Title for Table */}

@@ -37,3 +37,7 @@
 .table-row:hover{
   background: lightgrey;
 }
+
+.client-card:hover{
+  background: lightgoldenrodyellow;
+}

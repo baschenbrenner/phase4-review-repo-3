@@ -5,6 +5,9 @@ import { userContext } from "./App";
 import { Typography } from "@mui/material";
 import ClientsPage from "./ClientsPage";
 import InvoicesPage from "./InvoicesPage";
+import HomePage from "./HomePage";
+import SignInSide from "./SignInSide";
+import SignUpPage from "./SignUpPage";
 
 function MainContainer({ errorData, setErrorData }){
     const user = useContext(userContext)
@@ -56,16 +59,15 @@ function handleUpdateClient(res){
     setClients(newClients)
 }
 
-    
 
     return(
         <div id="main-container">
             <Typography variant="h1" component="h1">Freelance</Typography>
             <Typography variant="h5" component="h3">Welcome, {user.username}!</Typography>
             <Routes>
-                <Route path="/home" element={<Typography variant="h5" component="h4">This is the HomePage</Typography >} />
-                <Route path="/invoices" element={<InvoicesPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} handleUpdateInvoice={handleUpdateInvoice}/>} />
-                <Route path="/clients" element={<ClientsPage userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} errorData={errorData} setErrorData={setErrorData}/>} />
+                <Route path="/home" element={<HomePage userClients={userClients} />} />
+                <Route path="/invoices" element={<InvoicesPage clients={clients} userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateInvoice={handleUpdateInvoice}/>} />
+                <Route path="/clients" element={<ClientsPage  userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} errorData={errorData} setErrorData={setErrorData}/>} />
             </Routes>
         </div>
     )
