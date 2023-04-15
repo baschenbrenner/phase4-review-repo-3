@@ -71,7 +71,8 @@ function InvoicesPage({
           setShowForm(true);
           setEditForm(true);
           setEditId(client.id);
-          setName(client.name);
+          setClientName(client.name);
+          setClientId(client.id);
           setDateSent(inv.date_invoice_sent);
           setDatePaid(inv.date_invoice_paid);
           setDescription(inv.service_description);
@@ -131,13 +132,14 @@ function InvoicesPage({
 
   const clientsOptions = clients.map((client) => {
     return (
-      <MenuItem id={client.id} key={client.id}>
+      <MenuItem id={client.id} key={client.id} value={client.name}>
         {client.name}
       </MenuItem>
     );
   });
 
   console.log(clientName);
+  console.log(clientId);
 
   // Return of JSX
   return (
@@ -166,16 +168,17 @@ function InvoicesPage({
               : "Add New Invoice"}
           </Typography>
 
+          { editForm ? null :
           <FormControl fullWidth>
             <InputLabel>Client</InputLabel>
             <Select
               id="client-select"
               value={clientName}
-              onChange={(e) => console.log(e)}
+              onChange={(e) => setClientName(e.target.value)}
             >
               {clientsOptions}
             </Select>
-          </FormControl>
+          </FormControl> }
 
           <TextField
             id="outlined"
