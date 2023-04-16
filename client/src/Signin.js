@@ -41,6 +41,11 @@ function Signin({ onLogin, errorData, setErrorData }) {
       </ul>
     );
   });
+
+  function handleNavToSignUp(){
+    navigate("/signup");
+    setErrorData([]);
+  }
   
 
   // Return of JSX
@@ -90,7 +95,7 @@ function Signin({ onLogin, errorData, setErrorData }) {
             <NavigationIcon sx={{ mr: 1 }} />
             Submit
           </Fab>
-          <Button variant="outlined" onClick={() => navigate("/signup")}>
+          <Button variant="outlined" onClick={handleNavToSignUp}>
             Create an account
           </Button>
         </Box>
