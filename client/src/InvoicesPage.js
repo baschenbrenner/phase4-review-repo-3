@@ -22,6 +22,8 @@ function InvoicesPage({
   userClients,
   handleUpdateInvoice,
   handleDeleteInvoice,
+  setErrorData,
+  errorsToDisplay
 }) {
   const user = useContext(userContext);
   const [showForm, setShowForm] = useState(false);
@@ -102,7 +104,7 @@ function InvoicesPage({
       if (res.ok) {
         res.json().then((data) => handleUpdateInvoice(data));
         resetForm();
-      } else res.json((data) => console.log(data));
+      } else res.json((data) => setErrorData(data.errors));
     });
   }
 
@@ -181,6 +183,7 @@ function InvoicesPage({
           >
             {datePaid}
           </TextField>
+          {errorsToDisplay}
           <Fab variant="extended" type="submit">
             <NavigationIcon sx={{ mr: 1 }} />
             Submit
@@ -205,9 +208,6 @@ function InvoicesPage({
               {" "}
               ${displayCosts(openInvoiceBalance)}
             </Typography>
-            <Button variant="text" onClick={() => navigate("/invoices")}>
-              See All Invoices
-            </Button>
           </Paper>
         </Grid>
       </Grid>

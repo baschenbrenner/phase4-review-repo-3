@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Box,
   TextField,
@@ -14,13 +14,13 @@ import {
   Checkbox,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import { userContext } from "./App";
 
-function AddInvoiceForm({ errorData, setErrorData, clients }) {
-    const user = useContext(userContext)
+function AddInvoiceForm({ errorsToDisplay, setErrorData, clients, handleAddInvoice }) {
+  const user = useContext(userContext);
   const [showForm, setShowForm] = useState(false);
   const [cost, setCost] = useState(null);
   const [description, setDescription] = useState("");
@@ -29,7 +29,6 @@ function AddInvoiceForm({ errorData, setErrorData, clients }) {
   const [dropdownOptions, setDropdownOptions] = useState([]);
   const [clientId, setClientId] = useState(null);
   const [showPay, setShowPay] = useState(false);
-
 
   function resetForm() {
     setShowForm(false);
@@ -41,44 +40,42 @@ function AddInvoiceForm({ errorData, setErrorData, clients }) {
     setDateSent("");
   }
 
-  useEffect(()=>{
-    setDropdownOptions(clients.map(client=>{
-        return <MenuItem value={client.id} key={client.id} >{client.name}</MenuItem>
-      }))
-  },[clients]);
-  
+  useEffect(() => {
+    setDropdownOptions(
+      clients.map((client) => {
+        return (
+          <MenuItem value={client.id} key={client.id}>
+            {client.name}
+          </MenuItem>
+        );
+      })
+    );
+  }, [clients]);
 
-
-  function handleSubmitNewInvoice(e){
+  function handleSubmitNewInvoice(e) {
     e.preventDefault();
     const inv = {
-        client_id: clientId,
-        user_id: user.id,
-        cost: cost,
-        service_description: description,
-        date_invoice_sent: dateSent,
-        date_invoice_paid: datePaid
+      client_id: clientId,
+      user_id: user.id,
+      cost: cost,
+      service_description: description,
+      date_invoice_sent: dateSent,
+      date_invoice_paid: datePaid,
     };
-    console.log("Before FETCH", inv)
-    fetch('/invoices',{
-        method: "POST",
-        headers: {
-            "Content-Type" : "application/json"
-        },
-        body: JSON.stringify(inv)
-    }).then(res=>res.json())
-    .then(data=>console.log(data));
-  };
-
-  
-
-  //  const errorsToDisplay = errorData.map(error=> {
-  //     return <List style={{ color: "red" }} key={error}>
-  //               <ListItem >{error}</ListItem>
-  //             </List>
-  // })
-
-
+    console.log("Before FETCH", inv);
+    fetch("/invoices", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inv),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((data) => handleAddInvoice(data));
+        resetForm();
+      } else res.json().then((data) => setErrorData(data.errors));
+    });
+  }
 
   //  *** Return of JSX ***
   return (
@@ -100,21 +97,20 @@ function AddInvoiceForm({ errorData, setErrorData, clients }) {
             }}
             noValidate
             autoComplete="off"
-            onSubmit={ handleSubmitNewInvoice }
+            onSubmit={handleSubmitNewInvoice}
           >
             {/* *** Dropdown Select *** */}
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Client</InputLabel>
               <Select
-              required
+                required
                 labelId="client-label"
                 id="client-select"
                 value={clientId}
                 label="Client"
-                onChange={e=>setClientId(e.target.value)}
+                onChange={(e) => setClientId(e.target.value)}
               >
                 {dropdownOptions}
-                
               </Select>
             </FormControl>
             <Grid item xs={12}>
@@ -144,19 +140,23 @@ function AddInvoiceForm({ errorData, setErrorData, clients }) {
                 onChange={(e) => setDateSent(e.target.value)}
               />
             </Grid>
-            { showPay ? 
-            <Grid item xs={12}>
-              <TextField
-                id="outlined"
-                label="Date Invoice Paid"
-                value={datePaid}
-                onChange={(e) => setDatePaid(e.target.value)}
-              />
-            </Grid> : null }
-            <FormControlLabel control={<Checkbox  />} label="Already paid?" onChange={()=>setShowPay(!showPay)}/>
-            
+            {showPay ? (
+              <Grid item xs={12}>
+                <TextField
+                  id="outlined"
+                  label="Date Invoice Paid"
+                  value={datePaid}
+                  onChange={(e) => setDatePaid(e.target.value)}
+                />
+              </Grid>
+            ) : null}
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Already paid?"
+              onChange={() => setShowPay(!showPay)}
+            />
 
-            {/* {errorsToDisplay} */}
+            {errorsToDisplay}
 
             <Grid item xs={12}>
               <Fab variant="extended" type="submit">

@@ -26,7 +26,7 @@ function AddEditClientForm({
   setEditClient,
   editId,
   handleUpdateClient,
-  errorData,
+  errorsToDisplay,
   setErrorData
 }) {
 
@@ -90,11 +90,6 @@ function AddEditClientForm({
 }
 
 
- const errorsToDisplay = errorData.map(error=> {
-    return <List style={{ color: "red" }} key={error}>
-              <ListItem >{error}</ListItem>
-            </List>
-})
 
   return (
     <div>

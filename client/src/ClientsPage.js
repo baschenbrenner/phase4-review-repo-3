@@ -6,7 +6,7 @@ import ClientCard from "./ClientCard";
 import AddEditClientForm from "./AddEditClientForm";
 import AddInvoiceForm from "./AddInvoiceForm";
 
-function ClientsPage({ userClients, clients, handleDeleteInvoice, handleUpdateClient, errorData, setErrorData }) {
+function ClientsPage({ errorsToDisplay, handleAddInvoice, userClients, clients, handleDeleteInvoice, handleUpdateClient, errorData, setErrorData }) {
   const [showForm, setShowForm] = useState(false);
   const [nameForm, setNameForm] = useState("");
   const [poc, setPoc] = useState("");
@@ -62,13 +62,15 @@ function ClientsPage({ userClients, clients, handleDeleteInvoice, handleUpdateCl
         editId={editId}
         setEditId={setEditId}
         handleUpdateClient={handleUpdateClient}
-        errorData={errorData} 
+        errorsToDisplay={errorsToDisplay} 
         setErrorData={setErrorData}
       />
       <AddInvoiceForm 
         errorData={errorData} 
         setErrorData={setErrorData}
         clients={clients}
+        errorsToDisplay={errorsToDisplay}
+        handleAddInvoice={handleAddInvoice}
       />
       <Grid container spacing={2}>
         {clientsToDisplay}

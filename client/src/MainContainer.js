@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from 'react-router-dom';
 import { useState, useContext, useEffect } from "react";
 import { userContext } from "./App";
-import { Typography } from "@mui/material";
+import { Typography, List, ListItem } from "@mui/material";
 import ClientsPage from "./ClientsPage";
 import InvoicesPage from "./InvoicesPage";
 import HomePage from "./HomePage";
@@ -10,9 +10,10 @@ import SignInSide from "./SignInSide";
 import SignUpPage from "./SignUpPage";
 
 function MainContainer({ errorData, setErrorData }){
-    const user = useContext(userContext)
-    const [clients, setClients] = useState([])
-    const [userClients, setUserClients] = useState([])
+    const user = useContext(userContext);
+    const [clients, setClients] = useState([]);
+    const [userClients, setUserClients] = useState([]);
+    const [errorsToDisplay, setErrorsToDisplay] = useState([]);
     
 
     useEffect(()=>{
@@ -51,6 +52,13 @@ function handleUpdateInvoice(res){
     handleUpdateClient(targetClient);
 }
 
+function handleAddInvoice(res){
+    console.log("res after fetch", res);
+    const targetClient= [...clients].filter(client=>client.id === res.client_id)[0]
+    targetClient.invoices.push(res);
+    handleUpdateClient(targetClient);
+}
+
 function handleUpdateClient(res){
     console.log(res)
     const idx = [...clients].findIndex(client=>client.id === res.id)
@@ -60,14 +68,23 @@ function handleUpdateClient(res){
 }
 
 
+useEffect(()=>{
+    setErrorsToDisplay(errorData.map(error=> {
+        return <List style={{ color: "red" }} key={error}>
+                  <ListItem >{error}</ListItem>
+                </List>
+    }))
+}, [errorData]);
+
+
     return(
         <div id="main-container">
             <Typography variant="h1" component="h1">Freelance</Typography>
             <Typography variant="h5" component="h3">Welcome, {user.username}!</Typography>
             <Routes>
                 <Route path="/home" element={<HomePage userClients={userClients} />} />
-                <Route path="/invoices" element={<InvoicesPage clients={clients} userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateInvoice={handleUpdateInvoice}/>} />
-                <Route path="/clients" element={<ClientsPage  clients={clients} userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} errorData={errorData} setErrorData={setErrorData}/>} />
+                <Route path="/invoices" element={<InvoicesPage clients={clients} userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateInvoice={handleUpdateInvoice} errorsToDisplay={errorsToDisplay} setErrorData={setErrorData}/>} />
+                <Route path="/clients" element={<ClientsPage  clients={clients} userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleAddInvoice={handleAddInvoice} handleUpdateClient={handleUpdateClient} errorsToDisplay={errorsToDisplay} setErrorData={setErrorData}/>} />
             </Routes>
         </div>
     )
