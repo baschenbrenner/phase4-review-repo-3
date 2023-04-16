@@ -37,7 +37,7 @@ function Signup({ onLogin, errorData, setErrorData }) {
         setErrorData([]);
       } else res.json().then((data) => setErrorData(data.errors));
     });
-  }
+  };
 
   const errorsToDisplay = errorData.map((error) => {
     return (
@@ -46,6 +46,7 @@ function Signup({ onLogin, errorData, setErrorData }) {
       </ul>
     );
   });
+  
   function handleNavToSignIn(){
     navigate("/signin");
     setErrorData([]);

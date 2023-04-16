@@ -1,12 +1,12 @@
 import "./App.css";
 import { useState, useEffect, createContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Signin from "./Signin";
+// import Signin from "./Signin";
 import SignInSide from "./SignInSide";
-import Signup from "./Signup";
+import SignUpPage from "./SignUpPage";
 import Navbar from "./Navbar";
 import MainContainer from "./MainContainer";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 
 export const userContext = createContext(null);
 
@@ -55,7 +55,7 @@ function App() {
         <Route
           path="/signup"
           element={
-            <Signup
+            <SignUpPage
               onLogin={setUser}
               errorData={errorData}
               setErrorData={setErrorData}

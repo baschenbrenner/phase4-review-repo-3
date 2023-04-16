@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,9 +15,19 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props) {
+function SignUpPage({ onLogin, errorData, setErrorData }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const theme = createTheme();
+
+
+
+function Copyright(){
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://www.linkedin.com/in/andrewasmit/">
         Andrew Smit
@@ -24,19 +36,49 @@ function Copyright(props) {
       {'.'}
     </Typography>
   );
+};
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const user = {
+    username: username,
+    password: password,
+    password_confirmation: passwordConfirm,
+    email: email,
+  };
+  console.log("Before fetch: ", user);
+  fetch("/users", {
+    method: "POST",
+    body: JSON.stringify(user),
+    headers: {
+      "Content-type": "application/json",
+    },
+  }).then((res) => {
+    if (res.ok) {
+      res.json().then((data) => onLogin(data));
+      navigate("/home");
+      setUsername("");
+      setPassword("");
+      setEmail("");
+      setErrorData([]);
+    } else res.json().then((data) => setErrorData(data.errors));
+  });
+};
+
+const errorsToDisplay = errorData.map((error) => {
+  return (
+    <ul style={{ color: "red" }}>
+      <li key={error}>{error}</li>
+    </ul>
+  );
+});
+
+function handleNavToSignIn(){
+  navigate("/signin");
+  setErrorData([]);
 }
 
-const theme = createTheme();
 
-export default function SignUpPage() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -60,13 +102,13 @@ export default function SignUpPage() {
             <Grid container spacing={2}>
               <Grid item xs={12} >
                 <TextField
-                  autoComplete="given-name"
                   name="username"
                   required
                   fullWidth
                   id="username"
                   label="Username"
-                  autoFocus
+                  value={username}
+                  onChange={e=>setUsername(e.target.value)}
                 />
               </Grid>
               
@@ -77,7 +119,8 @@ export default function SignUpPage() {
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
+                  value={email}
+                  onChange={e=>setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -88,7 +131,8 @@ export default function SignUpPage() {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                  value={password}
+                  onChange={e=>setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -98,8 +142,9 @@ export default function SignUpPage() {
                   name="password"
                   label="Confirm Password"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  id="password-confirm"
+                  value={passwordConfirm}
+                  onChange={e=>setPasswordConfirm(e.target.value)}
                 />
               </Grid>
             </Grid>
@@ -111,17 +156,17 @@ export default function SignUpPage() {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="center">
               <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+                <Button onClick={handleNavToSignIn} variant='text' >Already have an account? Sign in</Button>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mt: 5 }} fullWidth/>
       </Container>
     </ThemeProvider>
   );
-}
+};
+
+export default SignUpPage;
