@@ -6,5 +6,4 @@ class Invoice < ApplicationRecord
     validates :cost, presence: true
     # Include a minimum number for validations
     validates :date_invoice_sent, presence: true
-    validates :date_payment_due, presence: true
 end

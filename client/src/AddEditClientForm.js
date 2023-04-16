@@ -161,6 +161,6 @@ function AddEditClientForm({
       </Collapse>
     </div>
   );
-}
+};
 
 export default AddEditClientForm;

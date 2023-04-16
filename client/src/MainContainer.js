@@ -67,7 +67,7 @@ function handleUpdateClient(res){
             <Routes>
                 <Route path="/home" element={<HomePage userClients={userClients} />} />
                 <Route path="/invoices" element={<InvoicesPage clients={clients} userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateInvoice={handleUpdateInvoice}/>} />
-                <Route path="/clients" element={<ClientsPage  userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} errorData={errorData} setErrorData={setErrorData}/>} />
+                <Route path="/clients" element={<ClientsPage  clients={clients} userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateClient={handleUpdateClient} errorData={errorData} setErrorData={setErrorData}/>} />
             </Routes>
         </div>
     )

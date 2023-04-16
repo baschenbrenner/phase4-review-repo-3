@@ -44,8 +44,9 @@ function ClientCard(props){
             <Typography variant="h5" component="h4">{props.name}</Typography>
             <Typography variant="subtitle1" component="h6">Point of Contact: {props.point_of_contact}</Typography>
             <Typography variant="subtitle2" component="h6">Email: {props.poc_email}</Typography>
-            <Button onClick={()=>setShowInvoices(!showInvoices)}>{showInvoices ? "Hide Invoices" : "Show Invoices" }</Button>
             <Button onClick={handleUpdateClientClick}>Update Client</Button>
+            {/* <Button onClick={()=>console.log("CLICK")}>Add New Invoice</Button> */}
+            <Button onClick={()=>setShowInvoices(!showInvoices)}>{showInvoices ? "Hide Invoices" : "Show Invoices" }</Button>
             <Grid container >
                 { showInvoices ? invoicesToDisplay : null }
             </Grid>

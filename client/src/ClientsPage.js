@@ -4,8 +4,9 @@ import { useState } from "react";
 // import { userContext } from "./App";
 import ClientCard from "./ClientCard";
 import AddEditClientForm from "./AddEditClientForm";
+import AddInvoiceForm from "./AddInvoiceForm";
 
-function ClientsPage({ userClients, handleDeleteInvoice, handleUpdateClient, errorData, setErrorData }) {
+function ClientsPage({ userClients, clients, handleDeleteInvoice, handleUpdateClient, errorData, setErrorData }) {
   const [showForm, setShowForm] = useState(false);
   const [nameForm, setNameForm] = useState("");
   const [poc, setPoc] = useState("");
@@ -40,6 +41,8 @@ function ClientsPage({ userClients, handleDeleteInvoice, handleUpdateClient, err
     );
   });
 
+
+  // *** Return of JSX *** 
   return (
     <div>
       <Typography variant="h2" component="h3">
@@ -61,6 +64,11 @@ function ClientsPage({ userClients, handleDeleteInvoice, handleUpdateClient, err
         handleUpdateClient={handleUpdateClient}
         errorData={errorData} 
         setErrorData={setErrorData}
+      />
+      <AddInvoiceForm 
+        errorData={errorData} 
+        setErrorData={setErrorData}
+        clients={clients}
       />
       <Grid container spacing={2}>
         {clientsToDisplay}
