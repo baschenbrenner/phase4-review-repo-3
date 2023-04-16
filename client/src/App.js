@@ -2,6 +2,7 @@ import "./App.css";
 import { useState, useEffect, createContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Signin from "./Signin";
+import SignInSide from "./SignInSide";
 import Signup from "./Signup";
 import Navbar from "./Navbar";
 import MainContainer from "./MainContainer";
@@ -44,7 +45,7 @@ function App() {
         <Route
           path="/signin"
           element={
-            <Signin
+            <SignInSide
               onLogin={setUser}
               errorData={errorData}
               setErrorData={setErrorData}

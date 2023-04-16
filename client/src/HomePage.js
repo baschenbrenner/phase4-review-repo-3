@@ -36,7 +36,6 @@ function HomePage({ userClients }){
                         <Button variant="text" onClick={()=>navigate('/invoices')}>See All Invoices</Button>
                     </Paper>
                 </Grid>
-                
             </Grid>
         </div>
     )
