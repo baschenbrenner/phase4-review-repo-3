@@ -42,8 +42,8 @@ function ClientsPage({ userClients, handleDeleteInvoice, handleUpdateClient, err
 
   return (
     <div>
-      <Typography variant="h3" component="h3">
-        Clients
+      <Typography variant="h2" component="h3">
+        Clients Page
       </Typography>
       <AddEditClientForm
         showForm={showForm}

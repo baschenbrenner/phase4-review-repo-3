@@ -98,15 +98,15 @@ function AddEditClientForm({
 
   return (
     <div>
-      <Typography variant="h2" component="h3">
-        {editClient ? "Edit Client" : "Add New Client"}
+      <Typography variant="h5" component="h4">
+        {editClient && showForm ? "Edit Client" : "Add New Client"}
       </Typography>
       <Button variant="outlined" onClick={() => setShowForm(!showForm)}>
         {showForm ? "Hide Form" : "Add New Client"}
       </Button>
       {showForm ? (
         <Button variant="text" onClick={() => resetForm()}>
-          Reset Form
+          { editClient ? "Reset Form" : "Discard New Client" }
         </Button>
       ) : null}
       <Collapse in={showForm}>

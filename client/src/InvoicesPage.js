@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { userContext } from "./App";
 import {
   Button,
   Table,
@@ -11,35 +13,26 @@ import {
   Box,
   Fab,
   Collapse,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
+  Grid,
+  Paper,
 } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { useContext, useState } from "react";
-import { userContext } from "./App";
 
 function InvoicesPage({
   userClients,
-  clients,
   handleUpdateInvoice,
   handleDeleteInvoice,
 }) {
   const user = useContext(userContext);
-  const [name, setName] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [editForm, setEditForm] = useState(false);
   const [dateSent, setDateSent] = useState("");
   const [datePaid, setDatePaid] = useState("");
   const [description, setDescription] = useState("");
-  const [clientId, setClientId] = useState(null);
   const [clientName, setClientName] = useState("");
   const [editId, setEditId] = useState(null);
   const [cost, setCost] = useState(null);
+  const [openInvoiceBalance, setOpenInvoiceBalance] = useState([]);
+  const navigate = useNavigate();
 
   const rowsToDisplay = userClients.map((client) => {
     return client.invoices
@@ -69,10 +62,8 @@ function InvoicesPage({
         }
         function autoPopulateEdit() {
           setShowForm(true);
-          setEditForm(true);
           setEditId(client.id);
           setClientName(client.name);
-          setClientId(client.id);
           setDateSent(inv.date_invoice_sent);
           setDatePaid(inv.date_invoice_paid);
           setDescription(inv.service_description);
@@ -86,9 +77,6 @@ function InvoicesPage({
         );
       });
   });
-
-  // This is targeting the date_invoice_sent to then be sorted
-  // rowsToDisplay[0][0].props.children[1].props.children
 
   function displayCosts(int) {
     const num_parts = int.toString().split(".");
@@ -118,40 +106,32 @@ function InvoicesPage({
     });
   }
 
+  useEffect(() => {
+    let balance = 0;
+    userClients.forEach((client) => {
+      client.invoices.forEach((inv) => {
+        if (inv.date_invoice_paid === null) {
+          balance = balance + inv.cost;
+        }
+      });
+    });
+    setOpenInvoiceBalance(balance);
+  }, [userClients]);
+
   function resetForm() {
     setShowForm(false);
-    setEditForm(false);
     setEditId(null);
     setCost(null);
-    setClientId(null);
     setClientName("");
     setDatePaid("");
     setDateSent("");
     setDescription("");
   }
 
-  const clientsOptions = clients.map((client) => {
-    return (
-      <MenuItem id={client.id} key={client.id} value={client.name}>
-        {client.name}
-      </MenuItem>
-    );
-  });
-
-  console.log(clientName);
-  console.log(clientId);
-
-  // Return of JSX
+  // *****   Return of JSX   *****
   return (
+    // FORM
     <React.Fragment>
-      <Button variant="outlined" onClick={() => setShowForm(!showForm)}>
-        {editForm ? "Edit Invoice" : "Add Invoice"}
-      </Button>
-      {showForm ? (
-        <Button variant="text" onClick={() => resetForm()}>
-          Reset Form
-        </Button>
-      ) : null}
       <Collapse in={showForm}>
         <Box
           component="form"
@@ -162,24 +142,12 @@ function InvoicesPage({
           autoComplete="off"
           onSubmit={handleUpdateInvoiceSubmit}
         >
+          <Button variant="text" onClick={() => resetForm()}>
+            Discard Edit Invoice
+          </Button>
           <Typography variant="h5" component="h5">
-            {editForm
-              ? `Invoice for ${name} from ${dateSent}`
-              : "Add New Invoice"}
+            Invoice for {clientName} from {dateSent}
           </Typography>
-
-          { editForm ? null :
-          <FormControl fullWidth>
-            <InputLabel>Client</InputLabel>
-            <Select
-              id="client-select"
-              value={clientName}
-              onChange={(e) => setClientName(e.target.value)}
-            >
-              {clientsOptions}
-            </Select>
-          </FormControl> }
-
           <TextField
             id="outlined"
             value={description}
@@ -220,10 +188,29 @@ function InvoicesPage({
         </Box>
       </Collapse>
 
-      {/* Title for Table */}
-      <Typography variant="h5" component="h5">
-        Recent Invoices
+      {/* **** Title for Page  *****/}
+      <Typography variant="h2" component="h3">
+        Invoices Page
       </Typography>
+
+      {/* Open Invoices */}
+      <Grid container>
+        <Grid item xs={12}>
+          <Paper elevation={2}>
+            <Typography variant="h3" component="h3">
+              {" "}
+              Open Invoices
+            </Typography>
+            <Typography variant="h4" component="h4">
+              {" "}
+              ${displayCosts(openInvoiceBalance)}
+            </Typography>
+            <Button variant="text" onClick={() => navigate("/invoices")}>
+              See All Invoices
+            </Button>
+          </Paper>
+        </Grid>
+      </Grid>
 
       {/* Beginning of Table */}
       <Table size="small">
