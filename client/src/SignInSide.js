@@ -48,6 +48,7 @@ function SignInSide({ onLogin, errorData, setErrorData }) {
     return (
       <ul style={{ color: "red" }}>
         <li key={error}>{error}</li>
+        <li key={error}>HELLO!</li>
       </ul>
     );
   });
