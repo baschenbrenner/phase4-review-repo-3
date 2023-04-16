@@ -6,7 +6,7 @@ import ClientCard from "./ClientCard";
 import AddEditClientForm from "./AddEditClientForm";
 import AddInvoiceForm from "./AddInvoiceForm";
 
-function ClientsPage({ errorsToDisplay, handleAddInvoice, userClients, clients, handleDeleteInvoice, handleUpdateClient, errorData, setErrorData }) {
+function ClientsPage({ errorsToDisplay, handleAddInvoice, userClients, clients, setClients, handleDeleteInvoice, handleUpdateClient, errorData, setErrorData }) {
   const [showForm, setShowForm] = useState(false);
   const [nameForm, setNameForm] = useState("");
   const [poc, setPoc] = useState("");
@@ -64,6 +64,8 @@ function ClientsPage({ errorsToDisplay, handleAddInvoice, userClients, clients, 
         handleUpdateClient={handleUpdateClient}
         errorsToDisplay={errorsToDisplay} 
         setErrorData={setErrorData}
+        clients={clients}
+        setClients={setClients}
       />
       <AddInvoiceForm 
         errorData={errorData} 

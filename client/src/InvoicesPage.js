@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { userContext } from "./App";
 import {
   Button,
@@ -34,7 +33,6 @@ function InvoicesPage({
   const [editId, setEditId] = useState(null);
   const [cost, setCost] = useState(null);
   const [openInvoiceBalance, setOpenInvoiceBalance] = useState([]);
-  const navigate = useNavigate();
 
   const rowsToDisplay = userClients.map((client) => {
     return client.invoices

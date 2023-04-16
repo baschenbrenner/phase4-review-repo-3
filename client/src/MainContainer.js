@@ -84,7 +84,7 @@ useEffect(()=>{
             <Routes>
                 <Route path="/home" element={<HomePage userClients={userClients} />} />
                 <Route path="/invoices" element={<InvoicesPage clients={clients} userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleUpdateInvoice={handleUpdateInvoice} errorsToDisplay={errorsToDisplay} setErrorData={setErrorData}/>} />
-                <Route path="/clients" element={<ClientsPage  clients={clients} userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleAddInvoice={handleAddInvoice} handleUpdateClient={handleUpdateClient} errorsToDisplay={errorsToDisplay} setErrorData={setErrorData}/>} />
+                <Route path="/clients" element={<ClientsPage  clients={clients} setClients={setClients} userClients={userClients} handleDeleteInvoice={handleDeleteInvoice} handleAddInvoice={handleAddInvoice} handleUpdateClient={handleUpdateClient} errorsToDisplay={errorsToDisplay} setErrorData={setErrorData}/>} />
             </Routes>
         </div>
     )

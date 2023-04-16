@@ -22,7 +22,7 @@ import { userContext } from "./App";
 function AddInvoiceForm({ errorsToDisplay, setErrorData, clients, handleAddInvoice }) {
   const user = useContext(userContext);
   const [showForm, setShowForm] = useState(false);
-  const [cost, setCost] = useState(null);
+  const [cost, setCost] = useState("");
   const [description, setDescription] = useState("");
   const [datePaid, setDatePaid] = useState("");
   const [dateSent, setDateSent] = useState("");
@@ -34,7 +34,7 @@ function AddInvoiceForm({ errorsToDisplay, setErrorData, clients, handleAddInvoi
     setShowForm(false);
     setErrorData([]);
     setClientId(null);
-    setCost(null);
+    setCost("");
     setDescription("");
     setDatePaid("");
     setDateSent("");

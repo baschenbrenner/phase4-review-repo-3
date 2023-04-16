@@ -15,6 +15,8 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 
 function AddEditClientForm({
   showForm,
+  clients,
+  setClients,
   setShowForm,
   nameForm,
   setNameForm,
@@ -57,7 +59,7 @@ function AddEditClientForm({
     })
       .then((res) =>{
         if (res.ok){
-          res.json().then((data) => console.log(data))
+          res.json().then((data) => setClients([...clients, data]))
           resetForm();
       } else
        res.json().then(data=>setErrorData(data.errors))

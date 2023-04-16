@@ -20,11 +20,23 @@ Client.create(
     poc_email: Faker::Internet.email )
 end
 
-20.times do 
+15.times do 
 Invoice.create( 
     cost: Faker::Invoice.amount_between(from: 100, to: 5000), 
     date_invoice_sent:Faker::Date.backward(days: 365), 
     date_invoice_paid: Faker::Date.forward(days: 365), 
+    date_payment_due: Faker::Date.forward(days: 365), 
+    date_service_completed:Faker::Date.forward(days: 365), 
+    service_description:Faker::Lorem.paragraph, 
+    client_id: Faker::Number.between(from: 1, to: 10),
+    user_id: Faker::Number.between(from: 1, to: 2) )
+end
+
+8.times do 
+Invoice.create( 
+    cost: Faker::Invoice.amount_between(from: 100, to: 5000), 
+    date_invoice_sent:Faker::Date.backward(days: 365), 
+    date_invoice_paid: nil, 
     date_payment_due: Faker::Date.forward(days: 365), 
     date_service_completed:Faker::Date.forward(days: 365), 
     service_description:Faker::Lorem.paragraph, 
