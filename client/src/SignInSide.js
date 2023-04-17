@@ -42,7 +42,7 @@ function SignInSide({ onLogin, errorData, setErrorData }) {
         setErrorData([]);
       } else res.json().then((data) => setErrorData([data.error]));
     });
-  };
+  }
 
   const errorsToDisplay = errorData.map((error) => {
     return (
@@ -54,11 +54,7 @@ function SignInSide({ onLogin, errorData, setErrorData }) {
 
   function Copyright() {
     return (
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        align="center"
-      >
+      <Typography variant="body2" color="text.secondary" align="center">
         {"Copyright © "}
         <Link color="inherit" href="https://www.linkedin.com/in/andrewasmit/">
           Andrew Smit
@@ -70,6 +66,11 @@ function SignInSide({ onLogin, errorData, setErrorData }) {
   }
 
   const theme = createTheme();
+
+  function handleNavigate() {
+    navigate("/signup");
+    setErrorData([]);
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -148,11 +149,7 @@ function SignInSide({ onLogin, errorData, setErrorData }) {
               >
                 Sign In
               </Button>
-              <Button
-                onClick={() => navigate("/signup")}
-                variant="text"
-                fullWidth
-              >
+              <Button onClick={handleNavigate} variant="text" fullWidth>
                 {"Don't have an account? Sign Up"}
               </Button>
               <Copyright sx={{ mt: 5 }} />

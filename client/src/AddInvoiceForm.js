@@ -19,7 +19,12 @@ import {
 import NavigationIcon from "@mui/icons-material/Navigation";
 import { userContext } from "./App";
 
-function AddInvoiceForm({ errorsToDisplay, setErrorData, clients, handleAddInvoice }) {
+function AddInvoiceForm({
+  errorsToDisplay,
+  setErrorData,
+  clients,
+  handleAddInvoice,
+}) {
   const user = useContext(userContext);
   const [showForm, setShowForm] = useState(false);
   const [cost, setCost] = useState("");

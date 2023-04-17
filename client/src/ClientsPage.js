@@ -1,17 +1,26 @@
 import { Typography, Grid } from "@mui/material";
 import React from "react";
 import { useState } from "react";
-// import { userContext } from "./App";
 import ClientCard from "./ClientCard";
 import AddEditClientForm from "./AddEditClientForm";
 import AddInvoiceForm from "./AddInvoiceForm";
 
-function ClientsPage({ errorsToDisplay, handleAddInvoice, userClients, clients, setClients, handleDeleteInvoice, handleUpdateClient, errorData, setErrorData }) {
+function ClientsPage({
+  errorsToDisplay,
+  handleAddInvoice,
+  userClients,
+  clients,
+  setClients,
+  handleDeleteInvoice,
+  handleUpdateClient,
+  errorData,
+  setErrorData,
+}) {
   const [showForm, setShowForm] = useState(false);
   const [nameForm, setNameForm] = useState("");
   const [poc, setPoc] = useState("");
   const [pocEmail, setPocEmail] = useState("");
-  const [editClient, setEditClient] = useState(false)
+  const [editClient, setEditClient] = useState(false);
   const [editId, setEditId] = useState(null);
 
   const clientsToDisplay = userClients.map((client) => {
@@ -41,8 +50,7 @@ function ClientsPage({ errorsToDisplay, handleAddInvoice, userClients, clients, 
     );
   });
 
-
-  // *** Return of JSX *** 
+  // *** Return of JSX ***
   return (
     <div>
       <Typography variant="h2" component="h3">
@@ -62,13 +70,13 @@ function ClientsPage({ errorsToDisplay, handleAddInvoice, userClients, clients, 
         editId={editId}
         setEditId={setEditId}
         handleUpdateClient={handleUpdateClient}
-        errorsToDisplay={errorsToDisplay} 
+        errorsToDisplay={errorsToDisplay}
         setErrorData={setErrorData}
         clients={clients}
         setClients={setClients}
       />
-      <AddInvoiceForm 
-        errorData={errorData} 
+      <AddInvoiceForm
+        errorData={errorData}
         setErrorData={setErrorData}
         clients={clients}
         errorsToDisplay={errorsToDisplay}

@@ -1,26 +1,24 @@
 import "./App.css";
 import { useState, useEffect, createContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-// import Signin from "./Signin";
 import SignInSide from "./SignInSide";
 import SignUpPage from "./SignUpPage";
 import Navbar from "./Navbar";
 import MainContainer from "./MainContainer";
-// import { Button } from "@mui/material";
 
 export const userContext = createContext(null);
 
 function App() {
   const [user, setUser] = useState(null);
   const [errorData, setErrorData] = useState([]);
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/me").then((res) => {
       if (res.ok) {
         res.json().then((data) => setUser(data));
-      } else{
-        navigate('/signin');
+      } else {
+        navigate("/signin");
       }
     });
   }, []);
@@ -35,7 +33,7 @@ function App() {
       <div className="App">
         <userContext.Provider value={user}>
           <Navbar onLogout={onLogout} />
-          <MainContainer errorData={errorData} setErrorData={setErrorData}/>
+          <MainContainer errorData={errorData} setErrorData={setErrorData} />
         </userContext.Provider>
       </div>
     );

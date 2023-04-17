@@ -5,6 +5,5 @@ class Client < ApplicationRecord
     validates :name, presence: true
     validates :point_of_contact, presence: true
     validates :poc_email, presence: true
-    # Include email validations
-
+    validates :poc_email, uniqueness: true
 end

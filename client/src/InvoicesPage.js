@@ -22,7 +22,7 @@ function InvoicesPage({
   handleUpdateInvoice,
   handleDeleteInvoice,
   setErrorData,
-  errorsToDisplay
+  errorsToDisplay,
 }) {
   const user = useContext(userContext);
   const [showForm, setShowForm] = useState(false);
@@ -130,7 +130,6 @@ function InvoicesPage({
 
   // *****   Return of JSX   *****
   return (
-    // FORM
     <React.Fragment>
       <Collapse in={showForm}>
         <Box

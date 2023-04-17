@@ -9,7 +9,7 @@ import {
   Button,
   Grid,
   List,
-  ListItem
+  ListItem,
 } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
 
@@ -29,10 +29,8 @@ function AddEditClientForm({
   editId,
   handleUpdateClient,
   errorsToDisplay,
-  setErrorData
+  setErrorData,
 }) {
-
-
   function resetForm() {
     setNameForm("");
     setPoc("");
@@ -49,21 +47,18 @@ function AddEditClientForm({
       point_of_contact: poc,
       poc_email: pocEmail,
     };
-    console.log("Before Fetch:", client);
     fetch("/clients", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(client),
-    })
-      .then((res) =>{
-        if (res.ok){
-          res.json().then((data) => setClients([...clients, data]))
-          resetForm();
-      } else
-       res.json().then(data=>setErrorData(data.errors))
-    })
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((data) => setClients([...clients, data]));
+        resetForm();
+      } else res.json().then((data) => setErrorData(data.errors));
+    });
   }
 
   function handleUpdateClientFetch(e) {
@@ -80,19 +75,16 @@ function AddEditClientForm({
         "Content-Type": "application/json",
       },
       body: JSON.stringify(client),
-    })
-    .then((res) =>{
-      if (res.ok){
-        res.json().then((data) => handleUpdateClient(data))
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((data) => handleUpdateClient(data));
         resetForm();
         setEditClient(false);
-    } else
-     res.json().then(data=>setErrorData(data.errors))
-  })
-}
+      } else res.json().then((data) => setErrorData(data.errors));
+    });
+  }
 
-
-
+  // *** Return of JSX ***
   return (
     <div>
       <Typography variant="h5" component="h4">
@@ -103,7 +95,7 @@ function AddEditClientForm({
       </Button>
       {showForm ? (
         <Button variant="text" onClick={() => resetForm()}>
-          { editClient ? "Reset Form" : "Discard New Client" }
+          {editClient ? "Reset Form" : "Discard New Client"}
         </Button>
       ) : null}
       <Collapse in={showForm}>
@@ -158,6 +150,6 @@ function AddEditClientForm({
       </Collapse>
     </div>
   );
-};
+}
 
 export default AddEditClientForm;

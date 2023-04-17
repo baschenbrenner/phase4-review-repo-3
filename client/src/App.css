@@ -14,33 +14,33 @@
   color: white;
 }
 
-.add-edit-form{
+.add-edit-form {
   justify-content: center;
   padding: 20px;
 }
 
-.invoice-tag{
+.invoice-tag {
   text-align: center;
   background: white;
 }
-.invoice-tag:nth-of-type(2n){
+.invoice-tag:nth-of-type(2n) {
   background: rgba(585, 545, 245, 10.559);
 }
-.invoice-tag:hover{
+.invoice-tag:hover {
   background: whitesmoke;
 }
-.table-row{
+.table-row {
   text-align: center;
   background: white;
 }
-.table-row:nth-of-type(2n){
+.table-row:nth-of-type(2n) {
   background: rgba(585, 545, 245, 10.559);
 }
 
-.table-row:hover{
+.table-row:hover {
   background: lightgrey;
 }
 
-.client-card:hover{
+.client-card:hover {
   background: lightgoldenrodyellow;
 }
