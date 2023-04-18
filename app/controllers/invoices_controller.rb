@@ -16,6 +16,17 @@ class InvoicesController < ApplicationController
        head :no_content
     end
 
+    def special 
+        byebug
+        @client_id_arr = []
+        invoices = Invoice.all
+        new_arr = invoices.select{|inv| inv.cost > num}
+        new_arr.each {|inv| elem.client_id << @client_id_arr}
+        @client_id_arr.uniq 
+
+    end
+    # [1,2,3,4,5].select {|num| num.even? }     #=> [2, 4]
+
     private
     def invoice_params
         params.permit(
