@@ -23,6 +23,7 @@ function InvoicesPage({
   handleDeleteInvoice,
   setErrorData,
   errorsToDisplay,
+  openInvoiceBalance
 }) {
   const user = useContext(userContext);
   const [showForm, setShowForm] = useState(false);
@@ -32,7 +33,7 @@ function InvoicesPage({
   const [clientName, setClientName] = useState("");
   const [editId, setEditId] = useState(null);
   const [cost, setCost] = useState(null);
-  const [openInvoiceBalance, setOpenInvoiceBalance] = useState([]);
+  // const [openInvoiceBalance, setOpenInvoiceBalance] = useState([]);
 
   const rowsToDisplay = userClients.map((client) => {
     return client.invoices
@@ -106,17 +107,17 @@ function InvoicesPage({
     });
   }
 
-  useEffect(() => {
-    let balance = 0;
-    userClients.forEach((client) => {
-      client.invoices.forEach((inv) => {
-        if (inv.date_invoice_paid === null) {
-          balance = balance + inv.cost;
-        }
-      });
-    });
-    setOpenInvoiceBalance(balance);
-  }, [userClients]);
+  // useEffect(() => {
+  //   let balance = 0;
+  //   userClients.forEach((client) => {
+  //     client.invoices.forEach((inv) => {
+  //       if (inv.date_invoice_paid === null) {
+  //         balance = balance + inv.cost;
+  //       }
+  //     });
+  //   });
+  //   setOpenInvoiceBalance(balance);
+  // }, [userClients]);
 
   function resetForm() {
     setShowForm(false);
@@ -193,17 +194,12 @@ function InvoicesPage({
         Invoices Page
       </Typography>
 
-      {/* Open Invoices */}
+      {/* Open Invoice Total */}
       <Grid container>
         <Grid item xs={12}>
           <Paper elevation={2}>
-            <Typography variant="h3" component="h3">
-              {" "}
-              Open Invoices
-            </Typography>
-            <Typography variant="h4" component="h4">
-              {" "}
-              ${displayCosts(openInvoiceBalance)}
+            <Typography variant="h5" component="h4">
+              Open Invoice Total: ${displayCosts(openInvoiceBalance)}
             </Typography>
           </Paper>
         </Grid>

@@ -12,6 +12,20 @@ function MainContainer({ errorData, setErrorData }) {
   const [clients, setClients] = useState([]);
   const [userClients, setUserClients] = useState([]);
   const [errorsToDisplay, setErrorsToDisplay] = useState([]);
+  const [openInvoiceBalance, setOpenInvoiceBalance] = useState([]);
+
+  useEffect(() => {
+    let balance = 0;
+    userClients.forEach((client) => {
+      client.invoices.forEach((inv) => {
+        if (inv.date_invoice_paid === null && inv.user_id === user.id) {
+          balance = balance + inv.cost;
+        }
+      });
+    });
+    setOpenInvoiceBalance(balance);
+  }, [userClients]);
+
 
   useEffect(() => {
     fetch("/clients")
@@ -94,7 +108,7 @@ function MainContainer({ errorData, setErrorData }) {
         Welcome, {user.username}!
       </Typography>
       <Routes>
-        <Route path="/home" element={<HomePage userClients={userClients} />} />
+        <Route path="/home" element={<HomePage userClients={userClients} openInvoiceBalance={openInvoiceBalance}/>} />
         <Route
           path="/invoices"
           element={
@@ -105,6 +119,7 @@ function MainContainer({ errorData, setErrorData }) {
               handleUpdateInvoice={handleUpdateInvoice}
               errorsToDisplay={errorsToDisplay}
               setErrorData={setErrorData}
+              openInvoiceBalance={openInvoiceBalance}
             />
           }
         />

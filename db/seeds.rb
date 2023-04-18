@@ -32,7 +32,7 @@ Invoice.create(
     user_id: Faker::Number.between(from: 1, to: 2) )
 end
 
-8.times do 
+15.times do 
 Invoice.create( 
     cost: Faker::Invoice.amount_between(from: 100, to: 5000), 
     date_invoice_sent:Faker::Date.backward(days: 365), 

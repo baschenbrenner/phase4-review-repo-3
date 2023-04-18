@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Typography, Grid, Box, Button, Paper, Link } from "@mui/material";
+import { Typography, Grid, Button, Paper } from "@mui/material";
 
-function HomePage({ userClients }) {
-  const [openInvoiceBalance, setOpenInvoiceBalance] = useState([]);
+function HomePage({ userClients, openInvoiceBalance }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    let balance = 0;
-    userClients.forEach((client) => {
-      client.invoices.forEach((inv) => {
-        if (inv.date_invoice_paid === null) {
-          balance = balance + inv.cost;
-        }
-      });
-    });
-    setOpenInvoiceBalance(balance);
-  }, [userClients]);
+  
 
   function displayCosts(int) {
     const num_parts = int.toString().split(".");
     num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return num_parts.join(".");
-  }
+  };
 
   return (
     <div>
