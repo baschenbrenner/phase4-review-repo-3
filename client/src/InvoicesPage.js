@@ -55,9 +55,9 @@ function InvoicesPage({
                   ? inv.date_invoice_paid
                   : "Not Paid"}
               </TableCell>
-              <TableCell align="right">{`$${displayCosts(
-                inv.cost
-              )}.00`}</TableCell>
+              <TableCell align="right" style={{background: inv.date_invoice_paid === null ? "#f07167" : "#90a955" }}>
+                {`$${displayCosts(inv.cost)}.00`}
+              </TableCell>
             </TableRow>
           );
         }
