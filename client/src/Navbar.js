@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, ButtonGroup } from "@mui/material";
 
 function NavBar({ onLogout }) {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ function NavBar({ onLogout }) {
 
   return (
     <div>
+      <ButtonGroup>
       <Button onClick={() => navigate("/home")} variant="outlined">
         Home
       </Button>
@@ -26,6 +27,7 @@ function NavBar({ onLogout }) {
       <Button onClick={handleSignOutClick} variant="contained">
         Logout
       </Button>
+      </ButtonGroup>
     </div>
   );
 }

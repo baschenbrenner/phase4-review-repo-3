@@ -1,4 +1,4 @@
-import { Typography, Grid } from "@mui/material";
+import { Typography, Grid, Button, ButtonGroup } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import ClientCard from "./ClientCard";
@@ -16,7 +16,8 @@ function ClientsPage({
   errorData,
   setErrorData,
 }) {
-  const [showForm, setShowForm] = useState(false);
+  const [showInvoiceForm, setShowInvoiceForm] = useState(false);
+  const [showClientForm, setShowClientForm] = useState(false);
   const [nameForm, setNameForm] = useState("");
   const [poc, setPoc] = useState("");
   const [pocEmail, setPocEmail] = useState("");
@@ -34,8 +35,8 @@ function ClientsPage({
           poc_email={client.poc_email}
           invoices={client.invoices}
           handleDeleteInvoice={handleDeleteInvoice}
-          showForm={showForm}
-          setShowForm={setShowForm}
+          showForm={showClientForm}
+          setShowForm={setShowClientForm}
           nameForm={nameForm}
           setNameForm={setNameForm}
           poc={poc}
@@ -56,9 +57,23 @@ function ClientsPage({
       <Typography variant="h2" component="h3">
         Clients Page
       </Typography>
+      <ButtonGroup className="form-button-group">
+        <Button
+          variant="outlined"
+          onClick={() => setShowClientForm(!showClientForm)}
+        >
+          {showClientForm ? "Hide New Client" : "Add New Client"}
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => setShowInvoiceForm(!showInvoiceForm)}
+        >
+          {showInvoiceForm ? "Hide New Invoice" : "Add New Invoice"}
+        </Button>
+      </ButtonGroup>
       <AddEditClientForm
-        showForm={showForm}
-        setShowForm={setShowForm}
+        showClientForm={showClientForm}
+        setShowClientForm={setShowClientForm}
         nameForm={nameForm}
         setNameForm={setNameForm}
         poc={poc}
@@ -81,6 +96,8 @@ function ClientsPage({
         clients={clients}
         errorsToDisplay={errorsToDisplay}
         handleAddInvoice={handleAddInvoice}
+        showInvoiceForm={showInvoiceForm}
+        setShowInvoiceForm={setShowInvoiceForm}
       />
       <Grid container spacing={2}>
         {clientsToDisplay}

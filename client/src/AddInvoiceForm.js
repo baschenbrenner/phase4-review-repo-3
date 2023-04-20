@@ -21,9 +21,10 @@ function AddInvoiceForm({
   setErrorData,
   clients,
   handleAddInvoice,
+  showInvoiceForm,
+  setShowInvoiceForm
 }) {
   const user = useContext(userContext);
-  const [showForm, setShowForm] = useState(false);
   const [cost, setCost] = useState("");
   const [description, setDescription] = useState("");
   const [datePaid, setDatePaid] = useState("");
@@ -33,7 +34,7 @@ function AddInvoiceForm({
   const [showPay, setShowPay] = useState(false);
 
   function resetForm() {
-    setShowForm(false);
+    setShowInvoiceForm(false);
     setErrorData([]);
     setClientId(null);
     setCost("");
@@ -82,15 +83,12 @@ function AddInvoiceForm({
   //  *** Return of JSX ***
   return (
     <div>
-      <Button variant="outlined" onClick={() => setShowForm(!showForm)}>
-        {showForm ? "Hide Form" : "Add New Invoice"}
-      </Button>
-      {showForm ? (
+      {showInvoiceForm ? (
         <Button variant="text" onClick={() => resetForm()}>
           Discard New Invoice
         </Button>
       ) : null}
-      <Collapse in={showForm}>
+      <Collapse in={showInvoiceForm}>
         <Grid container spacing={2} className="add-edit-form">
           <Box
             component="form"

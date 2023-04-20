@@ -11,10 +11,10 @@ import {
 import NavigationIcon from "@mui/icons-material/Navigation";
 
 function AddEditClientForm({
-  showForm,
+  showClientForm,
   clients,
   setClients,
-  setShowForm,
+  setShowClientForm,
   nameForm,
   setNameForm,
   poc,
@@ -33,7 +33,7 @@ function AddEditClientForm({
     setPoc("");
     setPocEmail("");
     setEditClient(false);
-    setShowForm(false);
+    setShowClientForm(false);
     setErrorData([]);
   }
 
@@ -84,18 +84,12 @@ function AddEditClientForm({
   // *** Return of JSX ***
   return (
     <div>
-      <Typography variant="h5" component="h4">
-        {editClient && showForm ? "Edit Client" : "Add New Client"}
-      </Typography>
-      <Button variant="outlined" onClick={() => setShowForm(!showForm)}>
-        {showForm ? "Hide Form" : "Add New Client"}
-      </Button>
-      {showForm ? (
+      {showClientForm ? (
         <Button variant="text" onClick={() => resetForm()}>
           {editClient ? "Reset Form" : "Discard New Client"}
         </Button>
       ) : null}
-      <Collapse in={showForm}>
+      <Collapse in={showClientForm}>
         <Grid container spacing={2} className="add-edit-form">
           <Box
             component="form"
