@@ -125,9 +125,6 @@ function MainContainer({ errorData, setErrorData }) {
       <Typography variant="h1" component="h1">
         Freelance
       </Typography>
-      <Typography variant="h5" component="h3">
-        Welcome, {user.username}!
-      </Typography>
       <Routes>
         <Route path="/home" element={<HomePage userClients={userClients} openInvoiceBalance={openInvoiceBalance}/>} />
         <Route
