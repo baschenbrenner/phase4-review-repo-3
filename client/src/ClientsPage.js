@@ -51,6 +51,22 @@ function ClientsPage({
     );
   });
 
+  function handleAddClientFormClick(){
+    if(showInvoiceForm === true){
+      setShowInvoiceForm(false);
+      setShowClientForm(!showClientForm);
+    } else
+    setShowClientForm(!showClientForm);
+  }
+
+  function handleAddInvoiceFormClick(){
+    if(showClientForm === true){
+      setShowClientForm(false);
+      setShowInvoiceForm(!showInvoiceForm);
+    } else
+    setShowInvoiceForm(!showInvoiceForm);
+  }
+
   // *** Return of JSX ***
   return (
     <div>
@@ -60,13 +76,13 @@ function ClientsPage({
       <ButtonGroup className="form-button-group">
         <Button
           variant="outlined"
-          onClick={() => setShowClientForm(!showClientForm)}
+          onClick={handleAddClientFormClick}
         >
           {showClientForm ? "Hide New Client" : "Add New Client"}
         </Button>
         <Button
           variant="outlined"
-          onClick={() => setShowInvoiceForm(!showInvoiceForm)}
+          onClick={handleAddInvoiceFormClick}
         >
           {showInvoiceForm ? "Hide New Invoice" : "Add New Invoice"}
         </Button>
