@@ -13,6 +13,7 @@ function MainContainer({ errorData, setErrorData }) {
   const [userClients, setUserClients] = useState([]);
   const [errorsToDisplay, setErrorsToDisplay] = useState([]);
   const [openInvoiceBalance, setOpenInvoiceBalance] = useState([]);
+  const [notify, setNotify] = useState({isOpen: false, message: "", type: ""});
 
   useEffect(() => {
     let balance = 0;
@@ -60,6 +61,11 @@ function MainContainer({ errorData, setErrorData }) {
       return obj;
     });
     setClients(newClients);
+    setNotify({
+      isOpen: true,
+      message: "Invoice deleted successfully",
+      type: "warning"
+    })
   }
 
   function handleUpdateInvoice(res) {
@@ -69,6 +75,11 @@ function MainContainer({ errorData, setErrorData }) {
     const idx = targetClient.invoices.findIndex((inv) => inv.id === res.id);
     targetClient.invoices.splice(idx, 1, res);
     handleUpdateClient(targetClient);
+    setNotify({
+      isOpen: true,
+      message: "Invoice updated successfully",
+      type: "success"
+    })
   }
 
   function handleAddInvoice(res) {
@@ -78,6 +89,11 @@ function MainContainer({ errorData, setErrorData }) {
     )[0];
     targetClient.invoices.push(res);
     handleUpdateClient(targetClient);
+    setNotify({
+      isOpen: true,
+      message: "Invoice added successfully",
+      type: "success"
+    })
   }
 
   function handleUpdateClient(res) {
@@ -85,6 +101,11 @@ function MainContainer({ errorData, setErrorData }) {
     const newClients = [...clients];
     newClients.splice(idx, 1, res);
     setClients(newClients);
+    setNotify({
+      isOpen: true,
+      message: "Invoice added successfully",
+      type: "success"
+    })
   }
 
   useEffect(() => {
@@ -135,6 +156,8 @@ function MainContainer({ errorData, setErrorData }) {
               handleUpdateClient={handleUpdateClient}
               errorsToDisplay={errorsToDisplay}
               setErrorData={setErrorData}
+              notify={notify}
+              setNotify={setNotify}
             />
           }
         />

@@ -4,6 +4,7 @@ import { useState } from "react";
 import ClientCard from "./ClientCard";
 import AddEditClientForm from "./AddEditClientForm";
 import AddInvoiceForm from "./AddInvoiceForm";
+import Notification from "./Notification";
 
 function ClientsPage({
   errorsToDisplay,
@@ -15,6 +16,8 @@ function ClientsPage({
   handleUpdateClient,
   errorData,
   setErrorData,
+  notify,
+  setNotify
 }) {
   const [showInvoiceForm, setShowInvoiceForm] = useState(false);
   const [showClientForm, setShowClientForm] = useState(false);
@@ -46,6 +49,7 @@ function ClientsPage({
           editClient={editClient}
           setEditClient={setEditClient}
           setEditId={setEditId}
+          setNotify={setNotify}
         />
       </Grid>
     );
@@ -105,6 +109,8 @@ function ClientsPage({
         setErrorData={setErrorData}
         clients={clients}
         setClients={setClients}
+        notify={notify} 
+        setNotify={setNotify}
       />
       <AddInvoiceForm
         errorData={errorData}
@@ -114,10 +120,13 @@ function ClientsPage({
         handleAddInvoice={handleAddInvoice}
         showInvoiceForm={showInvoiceForm}
         setShowInvoiceForm={setShowInvoiceForm}
+        notify={notify} 
+        setNotify={setNotify}
       />
       <Grid container spacing={2}>
         {clientsToDisplay}
       </Grid>
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 }

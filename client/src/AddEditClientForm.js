@@ -27,6 +27,8 @@ function AddEditClientForm({
   handleUpdateClient,
   errorsToDisplay,
   setErrorData,
+  notify,
+  setNotify
 }) {
   function resetForm() {
     setNameForm("");
@@ -56,6 +58,11 @@ function AddEditClientForm({
         resetForm();
       } else res.json().then((data) => setErrorData(data.errors));
     });
+    setNotify({
+      isOpen: true,
+      message: `${client.name} added successfully`,
+      type: "success"
+    })
   }
 
   function handleUpdateClientFetch(e) {
@@ -79,6 +86,11 @@ function AddEditClientForm({
         setEditClient(false);
       } else res.json().then((data) => setErrorData(data.errors));
     });
+    setNotify({
+      isOpen: true,
+      message: `${client.name} updated successfully`,
+      type: "success"
+    })
   }
 
   // *** Return of JSX ***

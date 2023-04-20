@@ -22,7 +22,9 @@ function AddInvoiceForm({
   clients,
   handleAddInvoice,
   showInvoiceForm,
-  setShowInvoiceForm
+  setShowInvoiceForm,
+  notify,
+  setNotify
 }) {
   const user = useContext(userContext);
   const [cost, setCost] = useState("");
@@ -77,6 +79,11 @@ function AddInvoiceForm({
         res.json().then((data) => handleAddInvoice(data));
         resetForm();
       } else res.json().then((data) => setErrorData(data.errors));
+    });
+    setNotify({
+      isOpen: true,
+      message: "New invoice added successfully",
+      type: "success"
     });
   }
 
