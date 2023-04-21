@@ -70,10 +70,12 @@ function MainContainer({ errorData, setErrorData }) {
 
   function handleUpdateInvoice(res) {
     const targetClient = [...clients].filter(
-      (client) => client.id === res.id
+      (client) => client.id === res.client_id
     )[0];
+
     const idx = targetClient.invoices.findIndex((inv) => inv.id === res.id);
     targetClient.invoices.splice(idx, 1, res);
+
     handleUpdateClient(targetClient);
     setNotify({
       isOpen: true,
@@ -97,13 +99,14 @@ function MainContainer({ errorData, setErrorData }) {
   }
 
   function handleUpdateClient(res) {
+    console.log("In update Client: ", res)
     const idx = [...clients].findIndex((client) => client.id === res.id);
     const newClients = [...clients];
     newClients.splice(idx, 1, res);
     setClients(newClients);
     setNotify({
       isOpen: true,
-      message: "Invoice added successfully",
+      message: "Client updated successfully",
       type: "success"
     })
   }
@@ -138,6 +141,8 @@ function MainContainer({ errorData, setErrorData }) {
               errorsToDisplay={errorsToDisplay}
               setErrorData={setErrorData}
               openInvoiceBalance={openInvoiceBalance}
+              notify={notify}
+              setNotify={setNotify}
             />
           }
         />

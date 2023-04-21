@@ -16,6 +16,7 @@ import {
   Paper,
 } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import Notification from "./Notification";
 
 function InvoicesPage({
   userClients,
@@ -23,7 +24,9 @@ function InvoicesPage({
   handleDeleteInvoice,
   setErrorData,
   errorsToDisplay,
-  openInvoiceBalance
+  openInvoiceBalance,
+  notify,
+  setNotify
 }) {
   const user = useContext(userContext);
   const [showForm, setShowForm] = useState(false);
@@ -33,7 +36,7 @@ function InvoicesPage({
   const [clientName, setClientName] = useState("");
   const [editId, setEditId] = useState(null);
   const [cost, setCost] = useState(null);
-  // const [openInvoiceBalance, setOpenInvoiceBalance] = useState([]);
+
 
   const rowsToDisplay = userClients.map((client) => {
     return client.invoices
@@ -63,12 +66,12 @@ function InvoicesPage({
         }
         function autoPopulateEdit() {
           setShowForm(true);
-          setEditId(client.id);
+          setEditId(inv.id);
           setClientName(client.name);
           setDateSent(inv.date_invoice_sent);
           setDatePaid(inv.date_invoice_paid);
           setDescription(inv.service_description);
-          setCost(inv.cost);
+          setCost(parseInt(inv.cost));
         }
       })
       .sort((a, b) => {
@@ -107,17 +110,7 @@ function InvoicesPage({
     });
   }
 
-  // useEffect(() => {
-  //   let balance = 0;
-  //   userClients.forEach((client) => {
-  //     client.invoices.forEach((inv) => {
-  //       if (inv.date_invoice_paid === null) {
-  //         balance = balance + inv.cost;
-  //       }
-  //     });
-  //   });
-  //   setOpenInvoiceBalance(balance);
-  // }, [userClients]);
+  
 
   function resetForm() {
     setShowForm(false);
@@ -219,6 +212,7 @@ function InvoicesPage({
         </TableHead>
         <TableBody>{rowsToDisplay}</TableBody>
       </Table>
+      <Notification notify={notify} setNotify={setNotify} />
     </React.Fragment>
   );
 }
