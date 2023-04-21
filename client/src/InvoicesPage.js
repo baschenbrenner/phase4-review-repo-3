@@ -188,10 +188,10 @@ function InvoicesPage({
       </Typography>
 
       {/* Open Invoice Total */}
-      <Grid container>
-        <Grid item xs={12}>
-          <Paper elevation={2}>
-            <Typography variant="h5" component="h4">
+      <Grid container >
+        <Grid item xs={12} >
+          <Paper elevation={2} className="open-invoice-total">
+            <Typography variant="h5" component="h4" >
               Open Invoice Total: ${displayCosts(openInvoiceBalance)}
             </Typography>
           </Paper>
@@ -206,7 +206,7 @@ function InvoicesPage({
             <TableCell>Date Sent</TableCell>
             <TableCell>Client Name</TableCell>
             <TableCell>Service Description</TableCell>
-            <TableCell>Paid</TableCell>
+            <TableCell>Date Paid</TableCell>
             <TableCell align="right">Cost</TableCell>
           </TableRow>
         </TableHead>

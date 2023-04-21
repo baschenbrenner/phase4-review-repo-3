@@ -52,5 +52,7 @@
 
 .home-header{
   padding-bottom: 50px;
-  /* color: darkblue; */
+}
+.open-invoice-total{
+  padding: 20px;
 }
