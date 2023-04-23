@@ -81,7 +81,7 @@ function MainContainer({ errorData, setErrorData }) {
       isOpen: true,
       message: "Invoice updated successfully",
       type: "success"
-    })
+    });
   }
 
   function handleAddInvoice(res) {

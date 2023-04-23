@@ -1,4 +1,6 @@
 class ClientsController < ApplicationController
+    before_action :authorize
+    skip_before_action :authorize, only: [:index]
 
     def index
         clients = Client.all

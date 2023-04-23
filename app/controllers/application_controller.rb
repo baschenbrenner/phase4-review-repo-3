@@ -15,4 +15,8 @@ def render_not_found_response e
   render json: { errors: e.record.errors.full_messages }, status: :not_found
 end
 
+def authorize
+  return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+end
+
 end

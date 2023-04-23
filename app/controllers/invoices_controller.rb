@@ -1,4 +1,5 @@
 class InvoicesController < ApplicationController
+    before_action :authorize
 
     def create
         invoice = Invoice.create!(invoice_params)
@@ -15,6 +16,7 @@ class InvoicesController < ApplicationController
        Invoice.find(params[:id]).destroy
        head :no_content
     end
+
     
 
     private
@@ -27,7 +29,8 @@ class InvoicesController < ApplicationController
             :date_service_completed,
             :client_id,
             :user_id,
-            :service_description )
+            :service_description 
+        )
     end
 
 end
