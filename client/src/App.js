@@ -14,13 +14,18 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/me").then((res) => {
+    console.log("Before Fetch")
+
+    fetch("/me")
+    .then((res) => {
       if (res.ok) {
         res.json().then((data) => setUser(data));
       } else {
-        navigate("/signin");
+        // navigate("/signin");
+        navigate("www.google.com");
       }
     });
+    console.log("After Fetch")
   }, []);
 
   function onLogout(res) {
