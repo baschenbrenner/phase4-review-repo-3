@@ -49,7 +49,6 @@ function ClientsPage({
           editClient={editClient}
           setEditClient={setEditClient}
           setEditId={setEditId}
-          setNotify={setNotify}
         />
       </Grid>
     );

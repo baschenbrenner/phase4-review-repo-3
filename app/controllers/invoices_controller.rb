@@ -1,15 +1,15 @@
 class InvoicesController < ApplicationController
     before_action :authorize_user, only: [:update, :destroy]
-    attr_accessor :invoice, :user_id
 
     def create
-        invoice = Invoice.create!(invoice_params)
+        user = User.find(session[:user_id])
+        invoice = user.invoices.create!(invoice_params)
         render json: invoice, status: :created
     end
 
     def update
         @invoice.update!(invoice_params)
-        render json: invoice, status: :accepted
+        render json: @invoice, status: :accepted
     end
 
     def destroy 
@@ -27,7 +27,7 @@ class InvoicesController < ApplicationController
             :date_payment_due, 
             :date_service_completed,
             :client_id,
-            :user_id,
+            # :user_id,
             :service_description 
         )
     end

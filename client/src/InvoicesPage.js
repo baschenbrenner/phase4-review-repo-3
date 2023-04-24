@@ -110,7 +110,6 @@ function InvoicesPage({
     });
   }
 
-  
 
   function resetForm() {
     setShowForm(false);
@@ -121,6 +120,8 @@ function InvoicesPage({
     setDateSent("");
     setDescription("");
   }
+
+
 
   // *****   Return of JSX   *****
   return (
@@ -154,7 +155,7 @@ function InvoicesPage({
             type="number"
             value={cost}
             label="Cost"
-            onChange={(e) => setCost(e.target.value)}
+            onChange={(e) => setCost(parseInt(e.target.value))}
           >
             {cost}
           </TextField>
