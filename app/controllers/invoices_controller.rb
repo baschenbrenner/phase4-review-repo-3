@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
-    before_action :authorize
+    before_action :authorize_user, only: [:update, :destroy]
+    attr_accessor :invoice, :user_id
 
     def create
         invoice = Invoice.create!(invoice_params)
@@ -7,16 +8,14 @@ class InvoicesController < ApplicationController
     end
 
     def update
-        invoice = Invoice.find(params[:id])
-        invoice.update!(invoice_params)
+        @invoice.update!(invoice_params)
         render json: invoice, status: :accepted
     end
 
     def destroy 
-       Invoice.find(params[:id]).destroy
-       head :no_content
+        @invoice.destroy
+        head :no_content
     end
-
     
 
     private
@@ -31,6 +30,12 @@ class InvoicesController < ApplicationController
             :user_id,
             :service_description 
         )
+    end
+
+    def authorize_user
+        @user_id = session[:user_id]
+        @invoice = Invoice.find(params[:id])
+        return render json: { error: "You are not authorized to edit or delete this invoice" }, status: :unauthorized unless @invoice.user_id == @user_id
     end
 
 end
