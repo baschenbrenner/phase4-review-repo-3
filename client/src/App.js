@@ -21,8 +21,7 @@ function App() {
       if (res.ok) {
         res.json().then((data) => setUser(data));
       } else {
-        // navigate("/signin");
-        navigate("www.google.com");
+        navigate("/signin");
       }
     });
     console.log("After Fetch")
