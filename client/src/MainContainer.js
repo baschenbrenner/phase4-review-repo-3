@@ -25,7 +25,7 @@ function MainContainer({ errorData, setErrorData }) {
       });
     });
     setOpenInvoiceBalance(balance);
-  }, [userClients]);
+  }, [userClients, user]);
 
 
   useEffect(() => {
