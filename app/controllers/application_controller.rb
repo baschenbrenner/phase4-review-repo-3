@@ -6,7 +6,6 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_resp
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
 def authorize
-  # @user = User.find(session[:user_id])
   return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
 end
 

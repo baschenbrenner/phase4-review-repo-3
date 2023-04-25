@@ -13,15 +13,15 @@ function App() {
   const [errorData, setErrorData] = useState([]);
   const navigate = useNavigate();
 
-  console.log("User: ", user)
 
   useEffect(() => {
     console.log("Before Fetch")
 
     fetch("/me").then((res) => {
-      // console.log(res)
+      console.log(res)
       if (res.ok) {
         res.json().then((data) => setUser(data));
+        navigate("/home");
       } else {
         navigate("/signin");
       }
