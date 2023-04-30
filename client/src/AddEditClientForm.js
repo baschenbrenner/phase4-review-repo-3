@@ -56,13 +56,20 @@ function AddEditClientForm({
       if (res.ok) {
         res.json().then((data) => setClients([...clients, data]));
         resetForm();
-      } else res.json().then((data) => setErrorData(data.errors));
+        setNotify({
+          isOpen: true,
+          message: `${client.name} added successfully`,
+          type: "success"
+        })
+      } else {
+        res.json().then((data) => setErrorData(data.errors));
+        setNotify({
+          isOpen: true,
+          message: "New Client was not added.",
+          type: "error"
+        })
+      }
     });
-    setNotify({
-      isOpen: true,
-      message: `${client.name} added successfully`,
-      type: "success"
-    })
   }
 
   function handleUpdateClientFetch(e) {

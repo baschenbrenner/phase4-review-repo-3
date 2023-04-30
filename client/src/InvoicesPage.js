@@ -109,6 +109,7 @@ function InvoicesPage({
       } else res.json((data) => setErrorData(data.errors));
     });
   }
+  console.log(errorsToDisplay)
 
 
   function resetForm() {
@@ -175,13 +176,15 @@ function InvoicesPage({
           >
             {datePaid}
           </TextField>
-          {errorsToDisplay}
+          {/* {errorsToDisplay} */}
           <Fab variant="extended" type="submit">
             <NavigationIcon sx={{ mr: 1 }} />
             Submit
           </Fab>
         </Box>
       </Collapse>
+      {errorsToDisplay}
+
 
       {/* **** Title for Page  *****/}
       <Typography variant="h2" component="h3">

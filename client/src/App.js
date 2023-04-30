@@ -15,22 +15,19 @@ function App() {
 
 
   useEffect(() => {
-    console.log("Before Fetch")
-
     fetch("/me").then((res) => {
-      console.log(res)
       if (res.ok) {
         res.json().then((data) => setUser(data));
         navigate("/home");
       } else {
+        setUser(null);
         navigate("/signin");
       }
     });
-    console.log("After Fetch")
   }, []);
 
-  function onLogout(res) {
-    setUser(res);
+  function onLogout(){
+    setUser(null);
   }
 
   // Return of JSX (dependant on Login of User-State)

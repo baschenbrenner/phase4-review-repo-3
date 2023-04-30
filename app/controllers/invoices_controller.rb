@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
     before_action :authorize_user, only: [:update, :destroy]
+    skip_before_action :authorize
 
     def create
         user = User.find(session[:user_id])
@@ -15,6 +16,12 @@ class InvoicesController < ApplicationController
     def destroy 
         @invoice.destroy
         head :no_content
+    end
+
+    def highest
+        # byebug
+        sorted_invoices = Invoice.order(cost: :desc)
+        render json: sorted_invoices.limit(3)
     end
     
 

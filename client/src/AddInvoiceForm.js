@@ -78,12 +78,19 @@ function AddInvoiceForm({
       if (res.ok) {
         res.json().then((data) => handleAddInvoice(data));
         resetForm();
-      } else res.json().then((data) => setErrorData(data.errors));
-    });
-    setNotify({
-      isOpen: true,
-      message: "New invoice added successfully",
-      type: "success"
+        setNotify({
+          isOpen: true,
+          message: "New invoice added successfully",
+          type: "success"
+        });
+      } else {
+        res.json().then((data) => setErrorData(data.errors));
+        setNotify({
+          isOpen: true,
+          message: "New invoice was not added",
+          type: "error"
+        });
+      }
     });
   }
 
