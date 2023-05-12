@@ -101,7 +101,7 @@ function SignInSide({ onLogin, errorData, setErrorData }) {
               alignItems: "center",
             }}
           >
-            <Typography variant="h1" component="h1">
+            <Typography variant="h2" component="h1">
               Freelance
             </Typography>
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>

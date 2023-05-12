@@ -74,7 +74,7 @@ function ClientsPage({
   return (
     <div>
       <Typography variant="h2" component="h3">
-        Clients Page
+        Clients
       </Typography>
       <ButtonGroup className="form-button-group">
         <Button

@@ -13,7 +13,7 @@ function NavBar({ onLogout }) {
   }
 
   return (
-    <div>
+    <div id="navbar">
       <ButtonGroup>
       <Button onClick={() => navigate("/home")} variant="outlined">
         Home

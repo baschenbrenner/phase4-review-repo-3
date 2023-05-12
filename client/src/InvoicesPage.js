@@ -153,7 +153,6 @@ function InvoicesPage({
           </TextField>
           <TextField
             id="outlined"
-            type="number"
             value={cost}
             label="Cost"
             onChange={(e) => setCost(parseInt(e.target.value))}
@@ -188,11 +187,11 @@ function InvoicesPage({
 
       {/* **** Title for Page  *****/}
       <Typography variant="h2" component="h3">
-        Invoices Page
+        Invoices
       </Typography>
 
       {/* Open Invoice Total */}
-      <Grid container >
+      <Grid container id="invoice-total">
         <Grid item xs={12} >
           <Paper elevation={2} className="open-invoice-total">
             <Typography variant="h5" component="h4" >
