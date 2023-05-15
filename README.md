@@ -5,7 +5,7 @@ This app utilizes a Rails API and a React frontend. It is an interface to better
 
 ## Video Demo
 
-Check out [this video](https://www.youtube.com/watch?v=bQC5izDzOgE) for a walk-through of Freelance.
+Check out [this video](https://www.youtube.com/watch?v=x9Iei1Yjqng) for a walk-through of Freelance.
 
 ## Installation
 
@@ -16,8 +16,8 @@ Check out [this video](https://www.youtube.com/watch?v=bQC5izDzOgE) for a walk-t
 
 This will host the app locally and open a browser window to display it. If for some reason the browser doesn't open, but the server started, you can click on the link that appear in the terminal, which should be...
 
-Local:            http://localhost:3000/
-On Your Network:  http://192.168.1.5:3000/server
+Local:            http://localhost:4000/
+On Your Network:  http://192.168.1.5:4000/server
 
 ## Usage
 
