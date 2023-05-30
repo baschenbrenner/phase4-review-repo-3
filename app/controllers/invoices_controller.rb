@@ -17,7 +17,7 @@ class InvoicesController < ApplicationController
         @invoice.destroy
         head :no_content
     end
-    
+  
 
     private
     def invoice_params

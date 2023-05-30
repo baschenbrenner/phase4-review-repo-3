@@ -16,7 +16,8 @@ Check out [this video](https://www.youtube.com/watch?v=x9Iei1Yjqng) for a walk-t
 - `cd` into the project directory
 - Run `bundle`
 - Make sure you are not using a postgresql database elsewhere and then run 'rails db:drop db:create db:migrate db:seed'
-- Run `npm i && npm start -prefix client`
+- `cd` into the client directory
+- run `npm install` then `npm start`
 
 This will host the app locally and open a browser window to display it. If for some reason the browser doesn't open, but the server started, you can click on the link that appear in the terminal, which should be...
 
