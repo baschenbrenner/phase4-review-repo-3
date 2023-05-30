@@ -16,6 +16,7 @@ Check out [this video](https://www.youtube.com/watch?v=x9Iei1Yjqng) for a walk-t
 - `cd` into the project directory
 - Run `bundle install`
 - Make sure you are not using a postgresql database elsewhere and then run `rails db:drop db:create db:migrate db:seed`
+- open a new terminal
 - `cd` into the client directory
 - run `npm install` then `npm start`
 
