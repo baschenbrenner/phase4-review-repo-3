@@ -1,6 +1,9 @@
 # Freelance
 
 Welcome to the Freelance web application!
+
+This app is built with a React frontend and a Ruby-on-Rails backend. It uses postgresql as the database manager. It was built by Andrew Smit for his phase 4 project. Ben Aschenbrenner forked and cloned it and made some changes and updates to make it a suitable tool for teaching and learning.
+
 This app utilizes a Rails API and a React frontend. It is an interface to better track your client information and payment history. Store you client's contact information and payment history for projects you've completed. Keep track of who has paid what and when. You also can get a great reminder of how many invoices are currently "open" in case you need to send out any reminders on payment due dates. 
 
 ## Video Demo
@@ -9,9 +12,10 @@ Check out [this video](https://www.youtube.com/watch?v=x9Iei1Yjqng) for a walk-t
 
 ## Installation
 
-- Fork and Clone this project
+- Clone this project
 - `cd` into the project directory
 - Run `bundle`
+- Make sure you are not using a postgresql database elsewhere and then run 'rails db:drop db:create db:migrate db:seed'
 - Run `npm i && npm start -prefix client`
 
 This will host the app locally and open a browser window to display it. If for some reason the browser doesn't open, but the server started, you can click on the link that appear in the terminal, which should be...

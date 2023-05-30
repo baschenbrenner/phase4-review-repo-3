@@ -2,16 +2,20 @@ require 'faker'
 puts 'Seeding 🌱'
 
 
+counter = 1
+while counter < 10
+    User.create(
+        username: "fakeUser"+counter.to_s, 
+        password: "1234", 
+        email: Faker::Internet.email 
+        )
 
-User.create(
-    username: "andrewasmit", 
-    password: "ABC123", 
-    email: Faker::Internet.email )
+    counter += 1
+end 
 
-User.create(
-    username: "test", 
-    password: "123", 
-    email: Faker::Internet.email )
+
+
+
 
 10.times do 
 Client.create(
@@ -29,7 +33,7 @@ Invoice.create(
     date_service_completed:Faker::Date.forward(days: 365), 
     service_description:Faker::Lorem.paragraph, 
     client_id: Faker::Number.between(from: 1, to: 10),
-    user_id: Faker::Number.between(from: 1, to: 2) )
+    user_id: Faker::Number.between(from: 1, to: 9) )
 end
 
 15.times do 
@@ -41,7 +45,7 @@ Invoice.create(
     date_service_completed:Faker::Date.forward(days: 365), 
     service_description:Faker::Lorem.paragraph, 
     client_id: Faker::Number.between(from: 1, to: 10),
-    user_id: Faker::Number.between(from: 1, to: 2) )
+    user_id: Faker::Number.between(from: 1, to: 9) )
 end
 
 

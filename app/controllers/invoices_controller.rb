@@ -17,12 +17,6 @@ class InvoicesController < ApplicationController
         @invoice.destroy
         head :no_content
     end
-
-    def highest
-        # byebug
-        sorted_invoices = Invoice.order(cost: :desc)
-        render json: sorted_invoices.limit(3)
-    end
     
 
     private
